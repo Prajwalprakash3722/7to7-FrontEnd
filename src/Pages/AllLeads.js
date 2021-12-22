@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import DatePicker from "react-date-picker";
 import PieChart from "../components/Graphs/PieGraph";
 import LineChart from "../components/Graphs/LineGraph";
+import Mixed from "../components/Graphs/Mixed";
 function Closed() {
   const [value, setValue] = React.useState(new Date());
   // const FetchData = (sele) => {
@@ -32,19 +33,20 @@ function Closed() {
           format="dd/MM/yyyy"
         />
       </div>
-      <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2">
-        <div className="bg-gray-50 p-5 m-2">
+      <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-1">
+        {/* <div className="bg-gray-50 p-5 m-2">
           <p>
             <span className="text-gray-500">Expense :</span>
           </p>
 
           <PieChart height={200} width={200} />
-        </div>
+        </div> */}
         <div className="bg-gray-50 p-5 m-2">
           <p>
             <span className="text-gray-500">Expense :</span>
           </p>
-          <LineChart height={200} width={200} />
+          {/* <LineChart height={200} width={200} /> */}
+          <Mixed />
           <div className="m-5" />
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
