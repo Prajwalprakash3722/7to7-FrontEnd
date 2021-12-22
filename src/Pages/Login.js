@@ -33,7 +33,7 @@ function Login() {
           localStorage.setItem("token", data.token);
           setSuccess(true);
           setTimeout(() => {
-            window.location.assign("/dashboard");
+            window.location.assign("/");
           }, 1500);
         } else {
           setError(true);

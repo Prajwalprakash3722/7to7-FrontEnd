@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { SelectedContext } from "../etc/context";
+
 import axios from "axios";
 export default function NavBar() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [globalSelected, setGlobalSelected] = React.useContext(SelectedContext);
   const [logged, setLoggedIn] = useState(false);
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -25,6 +28,7 @@ export default function NavBar() {
         });
     }
   }, [token]);
+  console.log("from here", globalSelected);
   return (
     <>
       <nav className="bg-white shadow-lg">
@@ -62,7 +66,7 @@ export default function NavBar() {
                     New Lead
                   </Link>
                   <Link
-                    to="/leads"
+                    to="/allleads"
                     className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300"
                   >
                     All Leads
