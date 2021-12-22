@@ -6,6 +6,7 @@ import LoginPage from "./Pages/Login";
 import RegisterPage from "./Pages/Register";
 import ClosedLeadsPage from "./Pages/Closed";
 import AllLeadsPage from "./Pages/AllLeads";
+import TablesPage from "./Pages/TablesPage";
 import Add from "./Pages/Add";
 import NavBar from "./components/NavBar";
 import { SelectedContext } from "./etc/context";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/allleads" element={<AllLeadsPage />} />
+            <Route path="/tables" element={<TablesPage />} />"
             <Route path="/closedleads" element={<ClosedLeadsPage />} />
           </Routes>
         </Router>
