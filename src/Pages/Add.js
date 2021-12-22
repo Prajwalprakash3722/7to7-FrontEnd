@@ -3,7 +3,7 @@ import { FileDrop } from "react-file-drop";
 import "./Add.css";
 import { SelectedContext } from "../etc/context";
 import axios from "axios";
-
+import api_link from "../etc/api";
 const Add = () => {
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -42,7 +42,7 @@ const Add = () => {
 
   useEffect(() => {
     axios
-      .get("http://172.16.18.42:3001/api/models", {
+      .get(api_link + "/api/models", {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),

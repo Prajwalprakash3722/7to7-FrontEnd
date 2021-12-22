@@ -10,7 +10,6 @@ import {
   Tooltip,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
-// import faker from 'faker';
 
 ChartJS.register(
   LinearScale,

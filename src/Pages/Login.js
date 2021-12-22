@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 // import RotateLeftIcon from "@mui/icons-material/RotateLeft";
+import api_link from "../etc/api";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +15,7 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://172.16.18.42:3001/api/auth/login", {
+    fetch(api_link + "/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SelectedContext } from "../etc/context";
-
+import api_link from "../etc/api";
 import axios from "axios";
 export default function NavBar() {
   const [token, setToken] = useState("");
@@ -17,7 +17,7 @@ export default function NavBar() {
     setToken(localStorage.getItem("token"));
     if (token) {
       axios
-        .get("http://172.16.18.42:3001/api/user", {
+        .get(api_link + "/api/user", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
