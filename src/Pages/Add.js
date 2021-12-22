@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FileDrop } from "react-file-drop";
 import "./Add.css";
-
+import {SelectedContext} from '../etc/context';
 import axios from "axios";
 
 const Add = () => {
@@ -19,6 +19,11 @@ const Add = () => {
   const [fileData, setFileData] = React.useState("");
   const [options, setOptions] = React.useState([]);
   const [selectedOption, setSelectedOption] = React.useState("");
+  
+  // global state to use
+  const [globalSelected,setGlobalSelected] = React.useContext(SelectedContext);
+
+
   const uploadFile = (files) => {
     setFile(files[0]);
     setFileName(files[0].name);
