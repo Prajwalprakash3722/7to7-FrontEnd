@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { FileDrop } from "react-file-drop";
 import "./Add.css";
 import { SelectedContext } from "../etc/context";
 import axios from "axios";
 import api_link from "../etc/api";
 const Add = () => {
-  const [token, setToken] = useState("");
-  useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, [token]);
+  const [token, setToken] = useState(()=>localStorage.getItem("token"));
+
+  // note that this is not immediately available to the application - so we use the lambda above to populate the token
+  // useEffect(() => {
+  //   setToken(localStorage.getItem("token"));
+  // }, [token]);
   const styles = {
     border: "1px solid black",
     width: 600,
@@ -16,16 +18,16 @@ const Add = () => {
     padding: 20,
   };
 
-  const [file, setFile] = React.useState(null);
-  const [fileName, setFileName] = React.useState("");
-  const [fileType, setFileType] = React.useState("");
-  const [fileSize, setFileSize] = React.useState("");
-  const [fileData, setFileData] = React.useState("");
-  const [options, setOptions] = React.useState([]);
-  const [selectedOption, setSelectedOption] = React.useState("");
+  const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const [fileType, setFileType] = useState("");
+  const [fileSize, setFileSize] = useState("");
+  const [fileData, setFileData] = useState("");
+  const [options, setOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
 
   // global state to use
-  const [globalSelected, setGlobalSelected] = React.useContext(SelectedContext);
+  const [globalSelected, setGlobalSelected] = useContext(SelectedContext);
 
   const uploadFile = (files) => {
     setFile(files[0]);
@@ -53,9 +55,10 @@ const Add = () => {
       });
   }, []);
 
-  const UploadModel = () => {
+  const selectModel = () => {
+    console.log('selectedoption',selectedOption);
     setGlobalSelected(selectedOption.id);
-    localStorage.setItem("selected", selectedOption.id);
+    // localStorage.setItem("selected", selectedOption.id);
   };
 
   return (
@@ -81,9 +84,9 @@ const Add = () => {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                   />
                 </svg>
@@ -92,11 +95,9 @@ const Add = () => {
 
               <div className="p-5 flex flex-row items-center ">
                 <div className="dropdown inline-block relative">
-                  <button className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                    <span className="mr-1">
-                      {selectedOption
-                        ? selectedOption.model_desc
-                        : "Select Model for Base Prediction"}
+                  <button className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center" style={{transition:'width 2s'}}>
+                    <span className="mr-1 " >
+                      {selectedOption?.model_desc?? "Select Model for Base Prediction"}
                       {/* {options.length > 0 ? options[0].model_desc : "Select Model"} */}
                     </span>
                     <svg
@@ -108,12 +109,13 @@ const Add = () => {
                     </svg>
                   </button>
                   <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
-                    {options.map((option) => (
-                      <li>
+                    {options.map((option,i) => (
+                      <li key={option+i}>
                         <p
                           href="#"
-                          class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block cursor-pointer"
+                          className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block cursor-pointer"
                           onClick={() => setSelectedOption(option)}
+                          
                         >
                           {option.model_desc}
                         </p>
@@ -124,7 +126,7 @@ const Add = () => {
                 <div>
                   <button
                     className="m-2 flex items-center justify-center w-full px-2 py-1 text-white transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none sm:w-auto sm:mx-1 hover:bg-blue-500 focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                    onClick={UploadModel}
+                    onClick={selectModel}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -134,9 +136,9 @@ const Add = () => {
                       stroke="currentColor"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                       />
                     </svg>

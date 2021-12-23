@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import api_link from "../etc/api";
+import { SelectedContext } from "../etc/context";
 const Users = () => {
   const [TableData, setTableData] = useState([]);
-  const [id, setId] = useState("");
-  const [token, setToken] = useState("");
+  const [id, setId] = useContext(SelectedContext)//useState("");
+  const [token, setToken] = useState(()=>localStorage.getItem("token"));
   const [header, setHeader] = useState([]);
   useEffect(() => {
-    setId(localStorage.getItem("selected"));
-    setToken(localStorage.getItem("token"));
+    // setId(localStorage.getItem("selected"));
+    // setToken(localStorage.getItem("token"));
     if (token) {
       axios
         .get(api_link + `/api/models/${id}`, {
@@ -29,8 +30,8 @@ const Users = () => {
       {TableData.length > 0 ? (
         <table class="shadow-lg bg-white">
           <tr>
-            {header.map((item) => (
-              <th class="bg-blue-100 border text-center px-8 py-4">{item}</th>
+            {header.map((item,i) => (
+              <th class="bg-blue-100 border text-center px-8 py-4" key={item+i}>{item}</th>
             ))}
           </tr>
           {TableData.length > 0 &&

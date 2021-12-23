@@ -96,7 +96,7 @@ export default function NavBar() {
                     to="/profile"
                     className="p-3 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
                   >
-                    {user.name}
+                    {user?.name??<div style={{color:'red'}}>Warning, logged out!</div>}
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -151,9 +151,9 @@ export default function NavBar() {
                   className=" w-6 h-6 text-gray-500 hover:text-blue-500 "
                   x-show="!showMenu"
                   fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
@@ -255,7 +255,7 @@ export default function NavBar() {
                     to="/profile"
                     className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                   >
-                    {user.name}
+                    {user?.name??'Not Logged in, please log in'}
                   </Link>{" "}
                 </li>
                 <li>

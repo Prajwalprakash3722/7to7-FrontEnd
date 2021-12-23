@@ -1,5 +1,6 @@
 import React from "react";
 /**
- * @type {React.Context<[any,React.Dispatch<any>]>}
+ * Selected id
+ * @type {React.Context<[number,React.Dispatch<number>]>}
  */
 export const SelectedContext = React.createContext(null);
