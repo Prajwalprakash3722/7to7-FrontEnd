@@ -7,10 +7,6 @@ import api_link from "../etc/api";
 const Add = () => {
   const [token, setToken] = useState(()=>localStorage.getItem("token"));
 
-  // note that this is not immediately available to the application - so we use the lambda above to populate the token
-  // useEffect(() => {
-  //   setToken(localStorage.getItem("token"));
-  // }, [token]);
   const styles = {
     border: "1px solid black",
     width: 600,

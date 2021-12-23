@@ -1,11 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,useMemo } from "react";
 import axios from "axios";
 import api_link from "../etc/api";
 import { SelectedContext } from "../etc/context";
 const Users = () => {
   const [TableData, setTableData] = useState([]);
   const [id, setId] = useContext(SelectedContext)//useState("");
-  const [token, setToken] = useState(()=>localStorage.getItem("token"));
+  // const [token, setToken] = useState(()=>localStorage.getItem("token"));
+  // we arent using setToken -> localStorage can itself preserve values between renders, useMemo is better
+  const token = useMemo(()=> localStorage.getItem("token"),[]);
   const [header, setHeader] = useState([]);
   useEffect(() => {
     // setId(localStorage.getItem("selected"));
@@ -19,11 +21,12 @@ const Users = () => {
         })
         .then((res) => {
           setTableData(res.data);
-          setHeader(res.data[0]);
-          console.log(header);
-        });
-    }
-  }, [id, token]);
+          // setHeader(res.data[0]);
+
+          console.log('headers test',header);
+        }).catch(console.error);
+    }else{console.error("No token")}
+  }, [id]);
 
   return (
     <div className="mb-10">

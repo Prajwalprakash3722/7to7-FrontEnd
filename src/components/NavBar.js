@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SelectedContext } from "../etc/context";
 import api_link from "../etc/api";
 import axios from "axios";
+
+/**
+ * 
+ * @param {string} currentState 
+ * @param {string} goodState state in which to show the active classes
+ * @param {string} extras stuff to always include
+ * @returns 
+ */
+const navButtonClassDecider = (currentState,goodState,extras)=>currentState===goodState?(' text-blue-500 border-b-4 border-blue-500 font-semibold '+extras):(' text-gray-500 font-semibold hover:text-blue-500 transition duration-300 '+extras);
+
+
 export default function NavBar() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
-  const [globalSelected, setGlobalSelected] = React.useContext(SelectedContext);
+  const [globalSelected] = useContext(SelectedContext);
+  const [currentPage,setCurrentPage] = useState('/');
   const [logged, setLoggedIn] = useState(false);
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -59,34 +71,35 @@ export default function NavBar() {
               <>
                 <div className="hidden md:flex items-center space-x-1">
                   <Link
-                    to="/"
-                    className="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold "
+                    to="/" onClick={()=>setCurrentPage('/')}
+                    className={navButtonClassDecider(currentPage,'/','py-4 px-2')}
                   >
                     New Lead
                   </Link>
                   <Link
-                    to="/allleads"
-                    className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300"
+                    to="/allleads" onClick={()=>setCurrentPage('/allleads')}
+                    className={navButtonClassDecider(currentPage,'/allleads','py-4 px-2')}
                   >
                     All Leads
                   </Link>
                   <Link
-                    to="/closedleads"
-                    className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300"
+                    to="/closedleads" onClick={()=>setCurrentPage('/closedleads')}
+                    className={navButtonClassDecider(currentPage,'/closedleads','py-4 px-2')}
                   >
                     Closed Leads
                   </Link>
 
                   <Link
-                    to="/openleads"
-                    className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300"
+                    to="/openleads" onClick={()=>setCurrentPage('/openleads')}
+                    className={navButtonClassDecider(currentPage,'/openleads','py-4 px-2')}
                   >
                     Open Leads
                   </Link>
 
                   <Link
                     to="/models"
-                    className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300"
+                    onClick={()=>setCurrentPage('/models')}
+                    className={navButtonClassDecider(currentPage,'/models','py-4 px-2')}
                   >
                     Models
                   </Link>
@@ -110,7 +123,7 @@ export default function NavBar() {
               <>
                 <div className="hidden md:flex items-center space-x-1">
                   <Link
-                    to="/"
+                    to="/" 
                     className="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold "
                   >
                     Home
