@@ -97,87 +97,85 @@ export default function PredTables() {
                     )}
                 </code>
             </pre> */}
-                <div
-                    style={{
-                        display: "block",
-                        maxWidth: "100%",
-                        overflowX: "scroll",
-                        // overflowY: "hidden",
-                        borderBottom: "1px solid black",
-                    }}
-                >
-                    <table {...getTableProps()} className="shadow-lg bg-white">
-                        <thead>
-                            {headerGroups.map((headerGroup) => (
-                                <tr {...headerGroup.getHeaderGroupProps()}>
-                                    {headerGroup.headers.map((column) => (
-                                        <th {...column.getHeaderProps()}>
-                                            {column.render("Header")}
-                                        </th>
-                                    ))}
+            <div
+                style={{
+                    display: "block",
+                    maxWidth: "100%",
+                    overflowX: "scroll",
+                    // overflowY: "hidden",
+                    borderBottom: "1px solid black",
+                }}
+            >
+                <table {...getTableProps()} className="shadow-lg bg-white">
+                    <thead>
+                        {headerGroups.map((headerGroup) => (
+                            <tr {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map((column) => (
+                                    <th {...column.getHeaderProps()}>
+                                        {column.render("Header")}
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {page.map((row, i) => {
+                            prepareRow(row);
+                            return (
+                                <tr {...row.getRowProps()} className="group">
+                                    {row.cells.map((cell) => {
+                                        return (
+                                            <td
+                                                {...cell.getCellProps()}
+                                                className="border text-center px-8 py-4 group-hover:bg-gray-100"
+                                            >
+                                                {cell.render("Cell")}
+                                            </td>
+                                        );
+                                    })}
                                 </tr>
-                            ))}
-                        </thead>
-                        <tbody {...getTableBodyProps()}>
-                            {page.map((row, i) => {
-                                prepareRow(row);
-                                return (
-                                    <tr
-                                        {...row.getRowProps()}
-                                        className="group"
-                                    >
-                                        {row.cells.map((cell) => {
-                                            return (
-                                                <td
-                                                    {...cell.getCellProps()}
-                                                    className="border text-center px-8 py-4 group-hover:bg-gray-100"
-                                                >
-                                                    {cell.render("Cell")}
-                                                </td>
-                                            );
-                                        })}
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-                {/* 
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            {/* 
             Pagination can be built however you'd like. 
             This is just a very basic UI implementation:
           */}
-                <br />
-                <div className="pagination">
-                    <button
-                        onClick={() => gotoPage(0)}
-                        disabled={!canPreviousPage}
-                    >
-                        {"<<"}
-                    </button>{" "}
-                    <button
-                        onClick={() => previousPage()}
-                        disabled={!canPreviousPage}
-                    >
-                        {"<"}
-                    </button>{" "}
-                    <button onClick={() => nextPage()} disabled={!canNextPage}>
-                        {">"}
-                    </button>{" "}
-                    <button
-                        onClick={() => gotoPage(pageCount - 1)}
-                        disabled={!canNextPage}
-                    >
-                        {">>"}
-                    </button>{" "}
-                    <span>
-                        Page{" "}
-                        <strong>
-                            {pageIndex + 1} of {pageOptions.length}
-                        </strong>{" "}
-                    </span>
-                    <span>
-                        | Go to page:{" "}
-                        <input
+            <br />
+            <div className="pagination">
+                <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                    {"<<"}
+                </button>{" "}
+                <button
+                className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                    onClick={() => previousPage()}
+                    disabled={!canPreviousPage}
+                >
+                    {"<"}
+                </button>{" "}
+                <button onClick={() => nextPage()} disabled={!canNextPage}
+                className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                >
+                    {">"}
+                </button>{" "}
+                <button
+                    onClick={() => gotoPage(pageCount - 1)}
+                    className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                    disabled={!canNextPage}
+                >
+                    {">>"}
+                </button>{" "}
+                <span>
+                    Page{" "}
+                    <strong>
+                        {pageIndex + 1} of {pageOptions.length}
+                    </strong>{" "}
+                </span>
+                <span>
+                    | Go to page:{" "}
+                    {/* <input
                             type="number"
                             defaultValue={pageIndex + 1}
                             onChange={(e) => {
@@ -187,22 +185,37 @@ export default function PredTables() {
                                 gotoPage(page);
                             }}
                             style={{ width: "100px" }}
-                        />
-                    </span>{" "}
-                    <select
-                        value={pageSize}
+                        /> */}
+                    <input
+                        type="number"
                         onChange={(e) => {
-                            setPageSize(Number(e.target.value));
+                            const page = e.target.value
+                                ? Number(e.target.value) - 1
+                                : 0;
+                            gotoPage(page);
                         }}
-                    >
-                        {[10, 20, 30, 40, 50].map((pageSize) => (
-                            <option key={pageSize} value={pageSize}>
-                                Show {pageSize}
-                            </option>
-                        ))}
-                    </select>
-                    <div style={{marginTop:'1rem'}}/>
-                </div>
+                        defaultValue={pageIndex + 1}
+                        className="px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                    />
+                </span>
+                {/* <div> */}
+                {/* </div> */}{" "}
+                <select
+                    value={pageSize}
+                    onChange={(e) => {
+                        setPageSize(Number(e.target.value));
+                    }}
+                    className="px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+
+                >
+                    {[10, 20, 30, 40, 50].map((pageSize) => (
+                        <option key={pageSize} value={pageSize}>
+                            Show {pageSize}
+                        </option>
+                    ))}
+                </select>
+                <div style={{ marginTop: "1rem" }} />
+            </div>
         </>
     );
 
