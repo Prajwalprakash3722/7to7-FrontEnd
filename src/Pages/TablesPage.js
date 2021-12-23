@@ -8,7 +8,7 @@ function TablesPage() {
       <div className="flex flex-row items-center justify-center mt-5">
         <Tables />
       </div>
-      <div className="flex flex-row items-center justify-center mt-5">
+      <div className="flex flex-col items-center justify-center mt-5">
         <PredTables />
       </div>
     </>
