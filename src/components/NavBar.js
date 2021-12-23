@@ -28,7 +28,6 @@ export default function NavBar() {
         });
     }
   }, [token]);
-  console.log("from here", globalSelected);
   return (
     <>
       <nav className="bg-white shadow-lg">

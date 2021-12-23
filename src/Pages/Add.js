@@ -55,6 +55,7 @@ const Add = () => {
 
   const UploadModel = () => {
     setGlobalSelected(selectedOption.id);
+    localStorage.setItem("selected", selectedOption.id);
   };
 
   return (
