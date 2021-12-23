@@ -111,7 +111,10 @@ export default function PredTables() {
                         {headerGroups.map((headerGroup) => (
                             <tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => (
-                                    <th {...column.getHeaderProps()}>
+                                    <th
+                                        class="bg-blue-100 border text-center"
+                                        {...column.getHeaderProps()}
+                                    >
                                         {column.render("Header")}
                                     </th>
                                 ))}
@@ -145,18 +148,24 @@ export default function PredTables() {
           */}
             <br />
             <div className="pagination">
-                <button className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                <button
+                    className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                    onClick={() => gotoPage(0)}
+                    disabled={!canPreviousPage}
+                >
                     {"<<"}
                 </button>{" "}
                 <button
-                className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                    className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                     onClick={() => previousPage()}
                     disabled={!canPreviousPage}
                 >
                     {"<"}
                 </button>{" "}
-                <button onClick={() => nextPage()} disabled={!canNextPage}
-                className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                <button
+                    onClick={() => nextPage()}
+                    disabled={!canNextPage}
+                    className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                 >
                     {">"}
                 </button>{" "}
@@ -206,7 +215,6 @@ export default function PredTables() {
                         setPageSize(Number(e.target.value));
                     }}
                     className="px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
-
                 >
                     {[10, 20, 30, 40, 50].map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
