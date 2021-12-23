@@ -123,7 +123,7 @@ const Add = () => {
                 <div>
                   <button
                     className="m-2 flex items-center justify-center w-full px-2 py-1 text-white transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none sm:w-auto sm:mx-1 hover:bg-blue-500 focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                    onClick={UploadModel()}
+                    onClick={UploadModel}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
