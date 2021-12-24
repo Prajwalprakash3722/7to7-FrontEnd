@@ -114,7 +114,7 @@ export default function PredTables() {
                             <tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => (
                                     <th
-                                        class="bg-blue-100 border text-center"
+                                        className="bg-blue-100 border text-center"
                                         {...column.getHeaderProps()}
                                     >
                                         <div>

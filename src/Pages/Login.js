@@ -67,10 +67,10 @@ function Login() {
                 )}
                 {success && (
                     <>
-                        <div class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 m-5">
-                            <div class="flex items-center justify-center w-12 bg-emerald-500">
+                        <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 m-5">
+                            <div className="flex items-center justify-center w-12 bg-emerald-500">
                                 <svg
-                                    class="w-6 h-6 text-white fill-current"
+                                    className="w-6 h-6 text-white fill-current"
                                     viewBox="0 0 40 40"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -78,12 +78,12 @@ function Login() {
                                 </svg>
                             </div>
 
-                            <div class="px-4 py-2 -mx-3">
-                                <div class="mx-3">
-                                    <span class="font-semibold text-emerald-500 dark:text-emerald-400">
+                            <div className="px-4 py-2 -mx-3">
+                                <div className="mx-3">
+                                    <span className="font-semibold text-emerald-500 dark:text-emerald-400">
                                         Success
                                     </span>
-                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                    <p className="text-sm text-gray-600 dark:text-gray-200">
                                         You have successfully logged in!
                                     </p>
                                 </div>
