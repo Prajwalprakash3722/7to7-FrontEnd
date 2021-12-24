@@ -121,7 +121,7 @@ export default function NavBar() {
                                         Open Leads
                                     </Link> */}
 
-                                    <Link
+                                    {/* <Link
                                         to="/models"
                                         onClick={() =>
                                             setCurrentPage("/models")
@@ -133,7 +133,7 @@ export default function NavBar() {
                                         )}
                                     >
                                         Models
-                                    </Link>
+                                    </Link> */}
                                     <Link
                                         to="/tables"
                                         onClick={() =>

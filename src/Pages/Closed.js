@@ -138,7 +138,7 @@ function Closed() {
             return { labels, counts, chartjsoptions };
         }, [trimmedData, selectedCategory]);
     // console.log("log", getMeHelp);
-    return (
+    return ((id!==null&&id!==undefined)?
         <>
             <div className="flex flex-row items-center justify-center m-5 p-5">
                 <DatePicker
@@ -201,7 +201,7 @@ function Closed() {
                     </Box>
                 </div>
             </div>
-        </>
+        </>:<>No model selected</>
     );
 }
 

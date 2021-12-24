@@ -6,6 +6,7 @@ import { useTable, usePagination } from "react-table";
 
 export default function PredTables() {
     const token = useMemo(() => localStorage.getItem("token"), []);
+    const [isReady, setIsReady] = useState(false);
     const [id, setId] = useContext(SelectedContext);
     const [tableData, setTableData] = useState([]);
     const [tableHeaders, setTableHeaders] = useState([
@@ -13,10 +14,13 @@ export default function PredTables() {
     ]);
     useEffect(() => {
         console.log(`Hey look our id is ${id}`);
-        axios
-            .get(`${api_link}/api/models/1`, {
+        (() => {
+            // short circuit the axios request if id is not available
+            if(id)
+            return axios.get(`${api_link}/api/models/${id ?? 1}`, {
                 headers: { Authorization: `Bearer ${token}` },
-            })
+            });else return new Promise((res)=>res({data:[]}))
+        })()
             .then((res) => {
                 const data = res.data;
                 // set the headers
@@ -25,6 +29,7 @@ export default function PredTables() {
                     console.warn("No headers ;_;");
                     return;
                 }
+                setIsReady(true);
                 const settableheaders = [
                     {
                         Header: "Data input table",
@@ -80,7 +85,7 @@ export default function PredTables() {
     );
 
     // Render the UI for your table
-    return (
+    return isReady && id !== undefined && id !== null ? (
         <>
             {/* <pre>
                 <code>
@@ -225,6 +230,8 @@ export default function PredTables() {
                 <div style={{ marginTop: "1rem" }} />
             </div>
         </>
+    ) : (
+        <>{id === null || id === undefined ? "No model" : "Loading"}</>
     );
 
     // table stuff

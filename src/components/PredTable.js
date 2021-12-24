@@ -8,15 +8,19 @@ export default function PredTables() {
     const token = useMemo(() => localStorage.getItem("token"), []);
     const [id, setId] = useContext(SelectedContext);
     const [tableData, setTableData] = useState([]);
+    const [isReady,setIsReady] = useState(false);
     const [tableHeaders, setTableHeaders] = useState([
         { Header: "Predictions", columns: [] },
     ]);
     useEffect(() => {
         // console.log(`Hey look our id is ${id}`);
-        axios
-            .get(`${api_link}/api/models/preds/1`, {
+        (() => {
+            // short circuit the axios request if id is not available
+            if(id)
+            return axios.get(`${api_link}/api/models/preds/${id ?? 1}`, {
                 headers: { Authorization: `Bearer ${token}` },
-            })
+            });else return new Promise((res)=>res({data:[]}))
+        })()
             .then((res) => {
                 const data = res.data;
                 // set the headers
@@ -25,6 +29,7 @@ export default function PredTables() {
                     console.warn("No headers ;_;");
                     return;
                 }
+                setIsReady(true);
                 const settableheaders = [
                     {
                         Header: "Prediction Table",
@@ -80,23 +85,9 @@ export default function PredTables() {
     );
 
     // Render the UI for your table
-    return (
+    return ((isReady&&id!==undefined&&id!==null)?
         <>
-            {/* <pre>
-                <code>
-                    {JSON.stringify(
-                        {
-                            pageIndex,
-                            pageSize,
-                            pageCount,
-                            canNextPage,
-                            canPreviousPage,
-                        },
-                        null,
-                        2
-                    )}
-                </code>
-            </pre> */}
+            
             <div
                 style={{
                     display: "block",
@@ -224,7 +215,7 @@ export default function PredTables() {
                 </select>
                 <div style={{ marginTop: "1rem" }} />
             </div>
-        </>
+        </>:<>{id===null||id===undefined?'No model':'Loading'}</>
     );
 
     // table stuff

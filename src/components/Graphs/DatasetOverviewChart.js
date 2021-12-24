@@ -57,7 +57,6 @@ export default function Overview({ year }) {
                 (total, element) => {
                     // console.log(element);
                     const month = parseInt(element['Enquiry Date'].split('-')[1])-1;
-                    if(month===1)console.log('this month',month);
                     if (element["Status"] === "0") total[month].dropped++;
                     else total[month].success++;
                     return total;
