@@ -25,6 +25,12 @@ function Closed() {
     const token = useMemo(() => localStorage.getItem("token"), []);
     const [id, setId] = useContext(SelectedContext);
 
+    const [selectedCategory, setSelectedCategory] =
+        useState("Predicted Prob.1");
+    const [selectableCategories, setSelectableCategories] = useState([
+        "Predicted Prob.1",
+    ]);
+
     useEffect(() => {
         axios
             .get(`${api_link}/api/models/preds/1`, {
@@ -33,8 +39,12 @@ function Closed() {
             .then((res) => {
                 const data = res.data;
                 setAlldata(data);
+                if (data.length > 0) {
+                    setSelectableCategories(Object.keys(data[0]));
+                }
             });
     }, [id, token]);
+
     // trimmed part of data
     const trimmedData = useMemo(() => {
         const data = alldata.filter((e) => {
@@ -49,8 +59,9 @@ function Closed() {
         console.log("trimmed data", data);
         return data;
     }, [year, month, alldata]);
-    const { chartjsoptions} = useMemo(() => {
+    const { chartjsoptions } = useMemo(() => {
         const total = new Map();
+
         trimmedData.forEach((element) => {
             total.set(
                 element["Predicted Prob.1"],
@@ -82,9 +93,51 @@ function Closed() {
                 },
             ],
         };
-        return {labels, counts, chartjsoptions};
+        return { labels, counts, chartjsoptions };
     }, [trimmedData]);
-    console.log('log',chartjsoptions);
+
+    // const groupByCol = "Enquiry Status Reasoning";
+
+    const { labels: groupedLabels, chartjsoptions: groupedchartjsoptions } =
+        useMemo(() => {
+            const total = new Map();
+            trimmedData.forEach((element) => {
+                total.set(
+                    element[selectedCategory],
+                    (total.get(element[selectedCategory]) ?? 0) + 1
+                );
+            });
+            const trimArray = [...total];
+            const labels = trimArray.map((e) => e[0]);
+            const counts = trimArray.map((e) => e[1]);
+            const chartjsoptions = {
+                labels,
+                datasets: [
+                    {
+                        type: "bar",
+                        label: "Grouped",
+                        data: counts,
+                        backgroundColor: "rgb(255, 99, 132)",
+                        hoverOffset: 4,
+                    },
+                    {
+                        type: "line",
+                        label: "CF",
+                        data: counts.map((e,i,x)=>{
+                            let sum=0;
+                            for(let it=0;it<i;it++){
+                                sum+=x[it]
+                            }
+                            return sum;
+                        }),
+                        backgroundColor: "rgb( 99,255, 132)",
+                        hoverOffset: 4,
+                    },
+                ],
+            };
+            return { labels, counts, chartjsoptions };
+        }, [trimmedData, selectedCategory]);
+    // console.log("log", getMeHelp);
     return (
         <>
             <div className="flex flex-row items-center justify-center m-5 p-5">
@@ -109,15 +162,30 @@ function Closed() {
                 </div>
                 <div className="bg-gray-50 p-5 m-2">
                     <p>
-                        <span className="text-gray-500">Expense :</span>
+                        <span className="text-gray-500">Grouped :</span>
+                        <select
+                            onChange={(e) => {
+                                setSelectedCategory(e.target.value);
+                            }}
+                        >
+                            {selectableCategories.map((e) => (
+                                <option key={e} value={e}>
+                                    {e}
+                                </option>
+                            ))}
+                        </select>
                     </p>
-                    <LineChart height={200} width={200} />
+                    <LineChart
+                        height={200}
+                        width={200}
+                        data={groupedchartjsoptions}
+                    />
                     <div className="m-5" />
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
+                            {/* <InputLabel id="demo-simple-select-label">
                                 Age
-                            </InputLabel>
+                            </InputLabel> */}
                             {/* <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"

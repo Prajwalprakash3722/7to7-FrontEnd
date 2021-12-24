@@ -27,7 +27,7 @@ export default function PredTables() {
                 }
                 const settableheaders = [
                     {
-                        Header: "Preducctions",
+                        Header: "Prediction Table",
                         columns: Object.keys(res.data[0] ?? {}).map((e) => {
                             return {
                                 Header: e,

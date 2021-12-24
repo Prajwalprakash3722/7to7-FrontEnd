@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export default function lineChart() {
+export default function lineChart({data}) {
   const options = {
     responsive: true,
     interaction: {
@@ -54,26 +54,26 @@ export default function lineChart() {
 
   const labels = ["January", "February", "March", "April", "May"];
 
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: "Income",
-        data: [10, 5, 2, 32, 5],
-        backgroundColor: "rgba(52, 211, 153, 0.5)",
-        borderColor: "rgba(52, 211, 153, 1.5)",
+  // const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       label: "Income",
+  //       data: [10, 5, 2, 32, 5],
+  //       backgroundColor: "rgba(52, 211, 153, 0.5)",
+  //       borderColor: "rgba(52, 211, 153, 1.5)",
 
-        yAxisID: "y",
-      },
-      {
-        label: "Expense",
-        data: [1, 2, 5, 0.3, 45],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        yAxisID: "y1",
-      },
-    ],
-  };
+  //       yAxisID: "y",
+  //     },
+  //     {
+  //       label: "Expense",
+  //       data: [1, 2, 5, 0.3, 45],
+  //       borderColor: "rgb(255, 99, 132)",
+  //       backgroundColor: "rgba(255, 99, 132, 0.5)",
+  //       yAxisID: "y1",
+  //     },
+  //   ],
+  // };
 
   return <Line options={options} data={data} />;
 }

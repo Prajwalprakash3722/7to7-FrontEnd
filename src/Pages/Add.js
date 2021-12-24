@@ -51,7 +51,8 @@ const Add = () => {
             });
     }, []);
 
-    const selectModel = () => {
+    const selectModel = (selectedOption) => {
+      setSelectedOption(selectedOption);
         console.log("selectedoption", selectedOption);
         setGlobalSelected(selectedOption.id);
         // localStorage.setItem("selected", selectedOption.id);
@@ -146,9 +147,10 @@ const Add = () => {
                                                     href="#"
                                                     className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block cursor-pointer"
                                                     onClick={() => {
-                                                        setSelectedOption(
-                                                            option
-                                                        );
+                                                        // setSelectedOption(
+                                                        //     option
+                                                        // );
+                                                        selectModel(option);
                                                         setSuccess(true);
                                                     }}
                                                 >
@@ -158,7 +160,7 @@ const Add = () => {
                                         ))}
                                     </ul>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <button
                                         className="m-2 flex items-center justify-center w-full px-2 py-1 text-white transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none sm:w-auto sm:mx-1 hover:bg-blue-500 focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
                                         onClick={selectModel}
@@ -179,7 +181,7 @@ const Add = () => {
                                         </svg>
                                         <span className="mx-1">Submit</span>
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
