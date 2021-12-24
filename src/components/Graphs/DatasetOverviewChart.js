@@ -23,7 +23,8 @@ ChartJS.register(
     Tooltip
 );
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = ["January", "February", "March", "April", "May", "June", "July",'August','September','October','November','December'];
+
 // color based on string
 const randomColor = function(str) {
     let hash = 0;
