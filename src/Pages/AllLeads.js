@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,8 +9,10 @@ import DatePicker from "react-date-picker";
 import PieChart from "../components/Graphs/PieGraph";
 import LineChart from "../components/Graphs/LineGraph";
 import Mixed from "../components/Graphs/Mixed";
-function Closed() {
+import Overview from "../components/Graphs/DatasetOverviewChart";
+function AllLeads() {
   const [value, setValue] = React.useState(new Date());
+  const yearDecided = useMemo(()=>{return value.getFullYear()},[value])
   // const FetchData = (sele) => {
   //   console.log(selectedOption.id);
   //   axios
@@ -28,11 +30,13 @@ function Closed() {
     <>
       <div className="flex flex-row items-center justify-center m-5 p-5">
         <DatePicker
-          onChange={(date) => setValue(date)}
+          onChange={(date) => {console.log(date);setValue(date)}}
           value={value}
-          format="dd/MM/yyyy"
-        />
+          format="yyyy"
+          maxDetail='decade'
+          />
       </div>
+          {/* dateFormat="MM/yyyy" */}
       <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-1">
         {/* <div className="bg-gray-50 p-5 m-2">
           <p>
@@ -46,7 +50,9 @@ function Closed() {
             <span className="text-gray-500">Expense :</span>
           </p>
           {/* <LineChart height={200} width={200} /> */}
-          <Mixed />
+          {/* <Mixed />
+           */}
+           <Overview year={yearDecided}/>
           <div className="m-5" />
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
@@ -70,4 +76,4 @@ function Closed() {
   );
 }
 
-export default Closed;
+export default AllLeads;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,10 +6,13 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useEffect } from "react";
 import DatePicker from "react-date-picker";
-import PieChart from "../components/Graphs/PieGraph";
+import ClosedPieGraph from "../components/Graphs/ClosedPieGraph";
 import LineChart from "../components/Graphs/LineGraph";
 function Closed() {
   const [value, setValue] = React.useState(new Date());
+  const yearDecided = useMemo(()=>{return value.getFullYear()},[value])
+  const monthDecided = useMemo(()=>{return value.getMonth()},[value])
+
   // const FetchData = (sele) => {
   //   console.log(selectedOption.id);
   //   axios
@@ -29,7 +32,8 @@ function Closed() {
         <DatePicker
           onChange={(date) => setValue(date)}
           value={value}
-          format="dd/MM/yyyy"
+          format="MM/yyyy"
+          maxDetail='year'
         />
       </div>
       <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2">
@@ -38,7 +42,7 @@ function Closed() {
             <span className="text-gray-500">Expense :</span>
           </p>
 
-          <PieChart height={200} width={200} />
+          <ClosedPieGraph height={200} width={200} year={yearDecided} month={monthDecided} />
         </div>
         <div className="bg-gray-50 p-5 m-2">
           <p>

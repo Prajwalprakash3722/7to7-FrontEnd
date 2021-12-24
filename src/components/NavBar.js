@@ -21,7 +21,7 @@ export default function NavBar() {
     const [token, setToken] = useState("");
     const [user, setUser] = useState({});
     const [globalSelected] = useContext(SelectedContext);
-    const [currentPage, setCurrentPage] = useState("/");
+    const [currentPage, setCurrentPage] = useState(()=>window.location.pathname);
     const [logged, setLoggedIn] = useState(false);
     const handleLogout = () => {
         localStorage.removeItem("token");

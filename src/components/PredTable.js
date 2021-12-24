@@ -9,10 +9,10 @@ export default function PredTables() {
     const [id, setId] = useContext(SelectedContext);
     const [tableData, setTableData] = useState([]);
     const [tableHeaders, setTableHeaders] = useState([
-        { Header: "Preducctions", columns: [] },
+        { Header: "Predictions", columns: [] },
     ]);
     useEffect(() => {
-        console.log(`Hey look our id is ${id}`);
+        // console.log(`Hey look our id is ${id}`);
         axios
             .get(`${api_link}/api/models/preds/1`, {
                 headers: { Authorization: `Bearer ${token}` },
