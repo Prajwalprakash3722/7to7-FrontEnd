@@ -121,7 +121,7 @@ const Add = () => {
                                 <span className="mx-1">Upload</span>
                             </button>
 
-                            <div className="p-5 flex flex-row items-center ">
+                            <div className="p-5 flex flex-col items-center ">
                                 <div className="dropdown inline-block relative">
                                     <button
                                         className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center"
@@ -159,10 +159,12 @@ const Add = () => {
                                             </li>
                                         ))}
                                     </ul>
-                                    <table>
+                                    <table className="mt-44">
                                         <tr>
-                                            <td>Description</td>
-                                            <td>
+                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                Description
+                                            </td>
+                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.model_desc ?? (
                                                     <span
                                                         style={{ color: "red" }}
@@ -173,8 +175,10 @@ const Add = () => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Model location</td>
-                                            <td>
+                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                Model location
+                                            </td>
+                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.model_desc ?? (
                                                     <span
                                                         style={{ color: "red" }}
@@ -185,8 +189,10 @@ const Add = () => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Data location</td>
-                                            <td>
+                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                Data location
+                                            </td>
+                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.data_loc ?? (
                                                     <span
                                                         style={{ color: "red" }}
@@ -197,8 +203,10 @@ const Add = () => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Prediction data location</td>
-                                            <td>
+                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                Prediction data location
+                                            </td>
+                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.pred_loc ?? (
                                                     <span
                                                         style={{ color: "red" }}
@@ -209,8 +217,10 @@ const Add = () => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Created at:</td>
-                                            <td>
+                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                Created at:
+                                            </td>
+                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.createdAt ?? (
                                                     <span
                                                         style={{ color: "red" }}
