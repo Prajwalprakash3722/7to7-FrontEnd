@@ -11,69 +11,76 @@ import LineChart from "../components/Graphs/LineGraph";
 import Mixed from "../components/Graphs/Mixed";
 import Overview from "../components/Graphs/DatasetOverviewChart";
 function AllLeads() {
-  const [value, setValue] = React.useState(new Date());
-  const yearDecided = useMemo(()=>{return value.getFullYear()},[value])
-  // const FetchData = (sele) => {
-  //   console.log(selectedOption.id);
-  //   axios
-  //     .get(`http://172.16.18.42:3001/api/models/preds/${selectedOption}`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: "Bearer " + localStorage.getItem("token"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setGlobalSelected(res.data);
-  //     });
-  // };
-  return (
-    <>
-      <div className="flex flex-row items-center justify-center m-5 p-5">
-        <DatePicker
-          onChange={(date) => {console.log(date);setValue(date)}}
-          value={value}
-          format="yyyy"
-          maxDetail='decade'
-          />
-      </div>
-          {/* dateFormat="MM/yyyy" */}
-      <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-1">
-        {/* <div className="bg-gray-50 p-5 m-2">
+    const [value, setValue] = React.useState(new Date());
+    const yearDecided = useMemo(() => {
+        return value.getFullYear();
+    }, [value]);
+    // const FetchData = (sele) => {
+    //   console.log(selectedOption.id);
+    //   axios
+    //     .get(`http://172.16.18.42:3001/api/models/preds/${selectedOption}`, {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: "Bearer " + localStorage.getItem("token"),
+    //       },
+    //     })
+    //     .then((res) => {
+    //       setGlobalSelected(res.data);
+    //     });
+    // };
+    return (
+        <>
+            <div className="flex flex-row items-center justify-center m-5 p-5">
+                <DatePicker
+                    onChange={(date) => {
+                        console.log(date);
+                        setValue(date);
+                    }}
+                    value={value}
+                    format="yyyy"
+                    maxDetail="decade"
+                />
+            </div>
+            {/* dateFormat="MM/yyyy" */}
+            <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-1">
+                {/* <div className="bg-gray-50 p-5 m-2">
           <p>
             <span className="text-gray-500">Expense :</span>
           </p>
 
           <PieChart height={200} width={200} />
         </div> */}
-        <div className="bg-gray-50 p-5 m-2">
-          <p>
-            <span className="text-gray-500">Expense :</span>
-          </p>
-          {/* <LineChart height={200} width={200} /> */}
-          {/* <Mixed />
-           */}
-           <Overview year={yearDecided}/>
-          <div className="m-5" />
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              {/* <Select
+                <div className="bg-gray-50 p-5 m-2">
+                    <p>
+                        <span className="text-gray-500">Expense :</span>
+                    </p>
+                    {/* <LineChart height={200} width={200} /> */}
+                    {/* <Mixed />
+                     */}
+                    <Overview year={yearDecided} />
+                    <div className="m-5" />
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                                Options:
+                            </InputLabel>
+                            {/* <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={age}
                 label="Age"
                 onChange={handleChange}
               > */}
-              {/* <MenuItem value={10}>Ten</MenuItem>
+                            {/* <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select> */}
-            </FormControl>
-          </Box>
-        </div>
-      </div>
-    </>
-  );
+                        </FormControl>
+                    </Box>
+                </div>
+            </div>
+        </>
+    );
 }
 
 export default AllLeads;
