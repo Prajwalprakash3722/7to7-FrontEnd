@@ -52,7 +52,7 @@ const Add = () => {
     }, []);
 
     const selectModel = (selectedOption) => {
-      setSelectedOption(selectedOption);
+        setSelectedOption(selectedOption);
         console.log("selectedoption", selectedOption);
         setGlobalSelected(selectedOption.id);
         // localStorage.setItem("selected", selectedOption.id);
@@ -154,11 +154,73 @@ const Add = () => {
                                                         setSuccess(true);
                                                     }}
                                                 >
-                                                    {option.model_desc}
+                                                    {`${option.model_desc}`}
                                                 </p>
                                             </li>
                                         ))}
                                     </ul>
+                                    <table>
+                                        <tr>
+                                            <td>Description</td>
+                                            <td>
+                                                {selectedOption.model_desc ?? (
+                                                    <span
+                                                        style={{ color: "red" }}
+                                                    >
+                                                        Not selected
+                                                    </span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Model location</td>
+                                            <td>
+                                                {selectedOption.model_desc ?? (
+                                                    <span
+                                                        style={{ color: "red" }}
+                                                    >
+                                                        Not selected
+                                                    </span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Data location</td>
+                                            <td>
+                                                {selectedOption.data_loc ?? (
+                                                    <span
+                                                        style={{ color: "red" }}
+                                                    >
+                                                        Not selected
+                                                    </span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Prediction data location</td>
+                                            <td>
+                                                {selectedOption.pred_loc ?? (
+                                                    <span
+                                                        style={{ color: "red" }}
+                                                    >
+                                                        Not selected
+                                                    </span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Created at:</td>
+                                            <td>
+                                                {selectedOption.createdAt ?? (
+                                                    <span
+                                                        style={{ color: "red" }}
+                                                    >
+                                                        Not selected
+                                                    </span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 {/* <div>
                                     <button
