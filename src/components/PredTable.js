@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext, useMemo } from "react";
 import { SelectedContext } from "../etc/context";
 import axios from "axios";
 import api_link from "../etc/api";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useFilters } from "react-table";
+import { ColumnFilter } from "./misc/ColFilter";
 
 export default function PredTables() {
     const token = useMemo(() => localStorage.getItem("token"), []);
@@ -12,6 +13,14 @@ export default function PredTables() {
     const [tableHeaders, setTableHeaders] = useState([
         { Header: "Predictions", columns: [] },
     ]);
+
+    const colFilterer = useMemo(() => {
+        return {
+          Filter: ColumnFilter,
+        };
+      }, []);
+
+
     useEffect(() => {
         // console.log(`Hey look our id is ${id}`);
         (() => {
@@ -80,7 +89,9 @@ export default function PredTables() {
             /* tableData */
 
             data: tableData,
+            defaultColumn:colFilterer
         },
+        useFilters,
         usePagination
     );
 
@@ -106,7 +117,10 @@ export default function PredTables() {
                                         class="bg-blue-100 border text-center"
                                         {...column.getHeaderProps()}
                                     >
-                                        {column.render("Header")}
+                                        <div>
+                                        {column.render("Header")}</div>
+                                        <br />
+                                        <div>{column.canFilter && column.render("Filter")}</div>
                                     </th>
                                 ))}
                             </tr>
