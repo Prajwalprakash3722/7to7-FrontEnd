@@ -33,7 +33,7 @@ function Closed() {
 
     useEffect(() => {
         axios
-            .get(`${api_link}/api/models/preds/1`, {
+            .get(`${api_link}/api/models/preds/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((res) => {
@@ -49,7 +49,7 @@ function Closed() {
     const trimmedData = useMemo(() => {
         const data = alldata.filter((e) => {
             const dateString = e["Enquiry Date"];
-            const datesplit = dateString.split("-");
+            const datesplit = dateString.split(/-|\//);
             const dateyear = parseInt(datesplit[2]);
             const datemonth = parseInt(datesplit[1]);
             const pred = year === dateyear && month === datemonth;
