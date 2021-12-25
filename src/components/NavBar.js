@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { SelectedContext } from "../etc/context";
-import api_link from "../etc/api";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { SelectedContext } from '../etc/context';
+import api_link from '../etc/api';
+import axios from 'axios';
 
 /**
  *
@@ -13,26 +13,28 @@ import axios from "axios";
  */
 const navButtonClassDecider = (currentState, goodState, extras) =>
     currentState === goodState
-        ? " text-blue-500 border-b-4 border-blue-500 font-semibold " + extras
-        : " text-gray-500 font-semibold hover:text-blue-500 transition duration-300 " +
+        ? ' text-blue-500 border-b-4 border-blue-500 font-semibold ' + extras
+        : ' text-gray-500 font-semibold hover:text-blue-500 transition duration-300 ' +
           extras;
 
 export default function NavBar() {
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState('');
     const [user, setUser] = useState({});
     const [globalSelected] = useContext(SelectedContext);
-    const [currentPage, setCurrentPage] = useState(()=>window.location.pathname);
+    const [currentPage, setCurrentPage] = useState(
+        () => window.location.pathname
+    );
     const [logged, setLoggedIn] = useState(false);
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem('token');
         setLoggedIn(false);
-        window.location.pathname = "/";
+        window.location.pathname = '/';
     };
     useEffect(() => {
-        setToken(localStorage.getItem("token"));
+        setToken(localStorage.getItem('token'));
         if (token) {
             axios
-                .get(api_link + "/api/user", {
+                .get(api_link + '/api/user', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -59,7 +61,7 @@ export default function NavBar() {
                                             <i className="fas fa-chart-line"></i>
                                         </span>
                                         7to7
-                                    </h1>{" "}
+                                    </h1>{' '}
                                     <span className="font-semibold text-gray-500 text-lg">
                                         Nandi Toyota
                                     </span>
@@ -71,11 +73,11 @@ export default function NavBar() {
                                 <div className="hidden md:flex items-center space-x-1">
                                     <Link
                                         to="/"
-                                        onClick={() => setCurrentPage("/")}
+                                        onClick={() => setCurrentPage('/')}
                                         className={navButtonClassDecider(
                                             currentPage,
-                                            "/",
-                                            "py-4 px-2"
+                                            '/',
+                                            'py-4 px-2'
                                         )}
                                     >
                                         New Lead
@@ -83,12 +85,12 @@ export default function NavBar() {
                                     <Link
                                         to="/allleads"
                                         onClick={() =>
-                                            setCurrentPage("/allleads")
+                                            setCurrentPage('/allleads')
                                         }
                                         className={navButtonClassDecider(
                                             currentPage,
-                                            "/allleads",
-                                            "py-4 px-2"
+                                            '/allleads',
+                                            'py-4 px-2'
                                         )}
                                     >
                                         All Leads
@@ -96,12 +98,12 @@ export default function NavBar() {
                                     <Link
                                         to="/closedleads"
                                         onClick={() =>
-                                            setCurrentPage("/closedleads")
+                                            setCurrentPage('/closedleads')
                                         }
                                         className={navButtonClassDecider(
                                             currentPage,
-                                            "/closedleads",
-                                            "py-4 px-2"
+                                            '/closedleads',
+                                            'py-4 px-2'
                                         )}
                                     >
                                         Closed Leads
@@ -137,12 +139,12 @@ export default function NavBar() {
                                     <Link
                                         to="/tables"
                                         onClick={() =>
-                                            setCurrentPage("/tables")
+                                            setCurrentPage('/tables')
                                         }
                                         className={navButtonClassDecider(
                                             currentPage,
-                                            "/tables",
-                                            "py-4 px-2"
+                                            '/tables',
+                                            'py-4 px-2'
                                         )}
                                     >
                                         Data Tables
@@ -150,15 +152,28 @@ export default function NavBar() {
                                     <Link
                                         to="/predtables"
                                         onClick={() =>
-                                            setCurrentPage("/predtables")
+                                            setCurrentPage('/predtables')
                                         }
                                         className={navButtonClassDecider(
                                             currentPage,
-                                            "/predtables",
-                                            "py-4 px-2"
+                                            '/predtables',
+                                            'py-4 px-2'
                                         )}
                                     >
                                         Prediction Tables
+                                    </Link>
+                                    <Link
+                                        to="/addmodel"
+                                        onClick={() =>
+                                            setCurrentPage('/addmodel')
+                                        }
+                                        className={navButtonClassDecider(
+                                            currentPage,
+                                            '/addmodel',
+                                            'py-4 px-2'
+                                        )}
+                                    >
+                                        Add Model
                                     </Link>
                                 </div>
                                 <div className="hidden md:flex items-center space-x-3 ">
@@ -167,7 +182,7 @@ export default function NavBar() {
                                         className="p-3 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
                                     >
                                         {user?.name ?? (
-                                            <div style={{ color: "red" }}>
+                                            <div style={{ color: 'red' }}>
                                                 Warning, logged out!
                                             </div>
                                         )}
@@ -279,7 +294,7 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         Log In
-                                    </Link>{" "}
+                                    </Link>{' '}
                                 </li>
                                 <li>
                                     <Link
@@ -287,7 +302,7 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         Sign Up
-                                    </Link>{" "}
+                                    </Link>{' '}
                                 </li>
                             </>
                         ) : (
@@ -298,7 +313,7 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         Home
-                                    </Link>{" "}
+                                    </Link>{' '}
                                 </li>
                                 <li>
                                     <Link
@@ -306,7 +321,7 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         About
-                                    </Link>{" "}
+                                    </Link>{' '}
                                 </li>
                                 <li>
                                     <Link
@@ -314,7 +329,7 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         Dashboard
-                                    </Link>{" "}
+                                    </Link>{' '}
                                 </li>
                                 <li>
                                     <Link
@@ -322,7 +337,7 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         Contact Us
-                                    </Link>{" "}
+                                    </Link>{' '}
                                 </li>
                                 <li>
                                     <Link
@@ -330,8 +345,8 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         {user?.name ??
-                                            "Not Logged in, please log in"}
-                                    </Link>{" "}
+                                            'Not Logged in, please log in'}
+                                    </Link>{' '}
                                 </li>
                                 <li>
                                     <button
@@ -339,7 +354,7 @@ export default function NavBar() {
                                         className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
                                     >
                                         Logout
-                                    </button>{" "}
+                                    </button>{' '}
                                 </li>
                             </>
                         )}

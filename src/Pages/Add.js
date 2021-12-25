@@ -151,6 +151,9 @@ const Add = () => {
                                                         // );
                                                         selectModel(option);
                                                         setSuccess(true);
+                                                        setTimeout(() => {
+                                                            setSuccess(false);
+                                                        }, 2000);
                                                     }}
                                                 >
                                                     {`${option.model_desc}`}
