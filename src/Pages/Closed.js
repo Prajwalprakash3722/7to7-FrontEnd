@@ -174,7 +174,7 @@ function Closed() {
                         type: 'line',
                         label: 'CF',
                         data: counts.map((e, i, x) => {
-                            let sum = 0;
+                            let sum = e;
                             for (let it = 0; it < i; it++) {
                                 sum += x[it];
                             }
