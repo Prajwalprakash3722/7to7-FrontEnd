@@ -38,7 +38,11 @@ const labels = [
     'December',
 ];
 
-// color based on string
+/**
+ * Hash function - hash a string to a color
+ * @param {string} str
+ * @returns {string} hex color
+ */
 const randomColor = function (str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -75,7 +79,7 @@ export default function Overview({ year }) {
             setAlldata(data);
         });
     }, [id, token]);
-    
+
     const chartJSdataCounts = useMemo(() => {
         // these are the array of header and count per month
         const headers = new Set();
@@ -124,15 +128,7 @@ export default function Overview({ year }) {
 
     // console.log("counts", chosenCounts);
     return id ? (
-        <Chart
-            type="bar"
-            data={chartJSdataCounts}
-            options={{
-                onClick: (x, y) => {
-                    console.log('kekw', x, y);
-                },
-            }}
-        />
+        <Chart type="bar" data={chartJSdataCounts} options={{}} />
     ) : (
         'No model chosen'
     );
