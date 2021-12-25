@@ -146,7 +146,9 @@ function Closed() {
     const { labels: groupedLabels, chartjsdata: groupedchartjsoptions } =
         useMemo(() => {
             const total = new Map();
+            // let sum=0;
             trimmedData.forEach((element) => {
+                // sum+=1;
                 total.set(
                     element[selectedCategory],
                     (total.get(element[selectedCategory]) ?? 0) + 1
@@ -163,7 +165,9 @@ function Closed() {
                         label: 'Grouped',
                         stack: 'stack1',
                         data: counts,
-                        backgroundColor: 'rgba(255, 99, 132,.7)',
+                        backgroundColor: 'rgba(255, 99, 132,.1)',
+                        borderColor:'rgb(128, 50, 64)',
+                        borderWidth:1,
                         hoverOffset: 4,
                     },
                     {
@@ -179,6 +183,20 @@ function Closed() {
                         backgroundColor: 'rgb( 99,255, 132)',
                         hoverOffset: 4,
                     },
+                    // this would be whole avg
+                    // {
+                    //     type: 'line',
+                    //     label: 'CF',
+                    //     data: counts.map((e, i, x) => {
+                    //         let sum = 0;
+                    //         for (let it = 0; it < i; it++) {
+                    //             sum += x[it];
+                    //         }
+                    //         return sum;
+                    //     }),
+                    //     backgroundColor: 'rgb( 100,100,0)',
+                    //     hoverOffset: 4,
+                    // },
                 ],
             };
 
@@ -205,7 +223,8 @@ function Closed() {
                     type: 'bar',
                     label: `Selected Probability (${selectedProbabilitySection})`,
                     data: probabilityFilteredCounts,
-                    backgroundColor: 'rgb( 99,255, 132)',
+                    backgroundColor: 'rgb( 99,128, 132)',
+                    // borderColor:,
                     stack: 'stack1',
 
                     hoverOffset: 4,
