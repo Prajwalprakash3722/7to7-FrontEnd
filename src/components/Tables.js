@@ -44,7 +44,7 @@ export default function PredTables() {
                             return {
                                 Header: e===''?'#':e,
                                 accessor: (data) => {
-                                    return data[''];
+                                    return data[e];
                                 },
                                 id: e === '' ? 'id' : e,
                             };
