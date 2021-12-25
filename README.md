@@ -2,5 +2,5 @@
 
 ## Team Members:
 
-- [Prajwal P]()
-- [Atreya bain]()
+-   [Prajwal P](https://github.com/Prajwalprakash3722)
+-   [Atreya bain](https://github.com/chrisvrose)

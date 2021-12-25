@@ -1,12 +1,12 @@
-import React, { useMemo } from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useEffect } from "react";
-import DatePicker from "react-date-picker";
-import Overview from "../components/Graphs/DatasetOverviewChart";
+import React, { useMemo } from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { useEffect } from 'react';
+import DatePicker from 'react-date-picker';
+import Overview from '../components/Graphs/DatasetOverviewChart';
 function AllLeads() {
     const [value, setValue] = React.useState(new Date());
     const yearDecided = useMemo(() => {
@@ -30,7 +30,6 @@ function AllLeads() {
             <div className="flex flex-row items-center justify-center m-5 p-5">
                 <DatePicker
                     onChange={(date) => {
-                        console.log(date);
                         setValue(date);
                     }}
                     value={value}
@@ -49,31 +48,31 @@ function AllLeads() {
         </div> */}
                 <div className="bg-gray-50 p-5 m-2">
                     <p>
-                        <span className="text-gray-500">Overview :</span>
+                        <span className="text-gray-500">Total Leads :</span>
                     </p>
                     {/* <LineChart height={200} width={200} /> */}
                     {/* <Mixed />
                      */}
                     <Overview year={yearDecided} />
                     <div className="m-5" />
-                    <Box sx={{ minWidth: 120 }}>
+                    {/* <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">
                                 Options:
                             </InputLabel>
-                            {/* <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              > */}
-                            {/* <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select> */}
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                // value={age}
+                                label="Age"
+                                // onChange={handleChange}
+                            >
+                                <MenuItem value={10}>Ten</MenuItem>
+                                <MenuItem value={20}>Twenty</MenuItem>
+                                <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
                         </FormControl>
-                    </Box>
+                    </Box> */}
                 </div>
             </div>
         </>

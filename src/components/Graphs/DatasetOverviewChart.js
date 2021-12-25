@@ -128,7 +128,29 @@ export default function Overview({ year }) {
 
     // console.log("counts", chosenCounts);
     return id ? (
-        <Chart type="bar" data={chartJSdataCounts} options={{}} />
+        <Chart
+            type="bar"
+            data={chartJSdataCounts}
+            options={{
+                title: {
+                    display: true,
+                    text: `Orders per month for ${year}`,
+                    fontSize: 20,
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                scales: {
+                    yAxis: {
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+                responsive: true,
+            }}
+        />
     ) : (
         'No model chosen'
     );

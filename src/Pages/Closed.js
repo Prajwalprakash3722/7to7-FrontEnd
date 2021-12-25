@@ -22,6 +22,7 @@ import {
     Title,
 } from 'chart.js';
 import { Doughnut as PieChart, Line as LineChart } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 ChartJS.register(
     ArcElement,
     CategoryScale,
@@ -113,20 +114,21 @@ function Closed() {
             return a[0] - b[0];
         });
         // unzip the above array into labels and counts
-
         // labels is the viewing 1.1% as .011
         // why are we creating and returning this?
         // this is useful for section selection, as this will be used to pick the clicked section and filter against it
         const labels = trimArray.map((e) => e[0]);
         // displaylabels is the same but `1.10%`
-        const displayLabels = trimArray.map((e) => `${(parseFloat(e[0])*100).toFixed(2)}%`);
+        const displayLabels = trimArray.map(
+            (e) => `${(parseFloat(e[0]) * 100).toFixed(2)}%`
+        );
         const counts = trimArray.map((e) => e[1]);
 
         const chartjsdata = {
-            labels:displayLabels,
+            labels: displayLabels,
             datasets: [
                 {
-                    label: 'My First Dataset',
+                    label: 'Predicted Probability',
                     data: counts,
                     backgroundColor: [
                         'rgb(255, 99, 132)',
@@ -144,7 +146,7 @@ function Closed() {
                 },
             ],
         };
-        return { labels, counts, chartjsdata: chartjsdata ,displayLabels};
+        return { labels, counts, chartjsdata: chartjsdata, displayLabels };
     }, [trimmedData]);
 
     // const groupByCol = "Enquiry Status Reasoning";
@@ -172,8 +174,8 @@ function Closed() {
                         stack: 'stack1',
                         data: counts,
                         backgroundColor: 'rgba(255, 99, 132,.1)',
-                        borderColor:'rgb(128, 50, 64)',
-                        borderWidth:1,
+                        borderColor: 'rgb(128, 50, 64)',
+                        borderWidth: 1,
                         hoverOffset: 4,
                     },
                     {
@@ -253,7 +255,9 @@ function Closed() {
             <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2">
                 <div className="bg-gray-50 p-5 m-2">
                     <p>
-                        <span className="text-gray-500">Probability distribution(Click for detail):</span>
+                        <span className="text-gray-500">
+                            {'Total Enquiries: ' + (trimmedData.length ?? 0)}
+                        </span>
                     </p>
 
                     <PieChart
@@ -280,49 +284,73 @@ function Closed() {
                     />
                 </div>
                 <div className="bg-gray-50 p-5 m-2">
-                    <p>
+                    <div className="m-5" />
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                                Grouped By:
+                            </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={selectedCategory}
+                                label="Age"
+                                onChange={(e) => {
+                                    setSelectedCategory(e.target.value);
+                                }}
+                            >
+                                {selectableCategories.map((e) => (
+                                    <MenuItem key={e} value={e}>
+                                        {e}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    {/* <p>
                         <span className="text-gray-500">Grouped :</span>
                         <select
+                            className="m-2 p-2 bg-slate-100 focus:outline-none"
                             onChange={(e) => {
                                 setSelectedCategory(e.target.value);
                             }}
                         >
                             {selectableCategories.map((e) => (
-                                <option key={e} value={e}>
+                                <option
+                                    className="m-2 p-2 bg-slate-100 "
+                                    key={e}
+                                    value={e}
+                                >
                                     {e}
                                 </option>
                             ))}
                         </select>
-                    </p>
+                    </p> */}
                     <LineChart
-                        
                         data={groupedchartjsoptions}
                         options={{ scales: { y: { stacked: false } } }}
                     />
-                    <div className="m-5" />
-                    <Box sx={{ minWidth: 120 }}>
-                        <FormControl fullWidth>
-                            {/* <InputLabel id="demo-simple-select-label">
-                                Age
-                            </InputLabel> */}
-                            {/* <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              > */}
-                            {/* <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select> */}
-                        </FormControl>
-                    </Box>
                 </div>
             </div>
         </>
     ) : (
-        <>No model selected</>
+        <>
+            <div className="flex flex-col items-center justify-center m-5 p-5">
+                <h1 className="text-gray-500 text-5xl m-5 ">
+                    No model selected
+                </h1>
+                <h2 className="text-neutral-500 text-2xl m-5">
+                    Please select a model from the
+                    <Link to="/add">
+                        <span className="text-blue-500 underline">
+                            {' '}
+                            Home Page{' '}
+                        </span>
+                    </Link>
+                    to view the data
+                </h2>
+            </div>
+        </>
     );
 }
 
