@@ -79,7 +79,7 @@ function AddModel() {
                                         })}
                                         <td>
                                             <button
-                                                className="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                                className="ml-5 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                                 type="button"
                                                 onClick={(e) => {
                                                     axios
@@ -104,7 +104,14 @@ function AddModel() {
                                                         );
                                                 }}
                                             >
-                                                Del
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z" />
+                                                </svg>
                                             </button>
                                         </td>
                                     </tr>
@@ -162,6 +169,7 @@ function AddModel() {
                                     type="text"
                                     name="model_desc"
                                     placeholder=" Model Description"
+                                    required
                                 />
                                 <label
                                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -173,6 +181,7 @@ function AddModel() {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="modelfile"
                                     name="modelfile"
+                                    required
                                 >
                                     {modelListIsReady ? (
                                         modelList.map((e) => (
@@ -198,6 +207,7 @@ function AddModel() {
                                     name="datafile"
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="datafile"
+                                    required
                                 >
                                     {dataFilesListIsReady ? (
                                         dataFilesList.map((e) => (
