@@ -113,11 +113,15 @@ function Closed() {
             return a[0] - b[0];
         });
         // unzip the above array into labels and counts
+
+        // labels is the viewing 1% as .01
         const labels = trimArray.map((e) => e[0]);
+        // displaylabels is the same but `1%`
+        const displayLabels = trimArray.map((e) => `${(parseFloat(e[0])*100).toFixed(2)}%`);
         const counts = trimArray.map((e) => e[1]);
 
         const chartjsdata = {
-            labels,
+            labels:displayLabels,
             datasets: [
                 {
                     label: 'My First Dataset',
@@ -138,7 +142,7 @@ function Closed() {
                 },
             ],
         };
-        return { labels, counts, chartjsdata: chartjsdata };
+        return { labels, counts, chartjsdata: chartjsdata ,displayLabels};
     }, [trimmedData]);
 
     // const groupByCol = "Enquiry Status Reasoning";
