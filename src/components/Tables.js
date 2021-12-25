@@ -11,7 +11,7 @@ export default function PredTables() {
     const [id] = useContext(SelectedContext);
     const [tableData, setTableData] = useState([]);
     const [tableHeaders, setTableHeaders] = useState([
-        { Header: 'Preducctions', columns: [] },
+        { Header: 'Input Data', columns: [] },
     ]);
     const colFilterer = useMemo(() => {
         return {
@@ -43,12 +43,9 @@ export default function PredTables() {
                         columns: Object.keys(res.data[0] ?? {}).map((e) => {
                             return {
                                 Header: e,
-                                accessor:
-                                    e === ''
-                                        ? (data) => {
-                                              return data[''];
-                                          }
-                                        : e,
+                                accessor: (data) => {
+                                    return data[''];
+                                },
                                 id: e === '' ? 'id' : e,
                             };
                         }),

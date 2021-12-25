@@ -45,12 +45,9 @@ export default function PredTables() {
                         columns: Object.keys(res.data[0] ?? {}).map((e) => {
                             return {
                                 Header: e,
-                                accessor:
-                                    e === ""
-                                        ? (data) => {
-                                              return data[""];
-                                          }
-                                        : e,
+                                accessor: (data) => {
+                                              return data[e];
+                                          },
                                 id: e === "" ? "id" : e,
                             };
                         }),
