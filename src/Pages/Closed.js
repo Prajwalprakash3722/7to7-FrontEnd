@@ -114,9 +114,9 @@ function Closed() {
         });
         // unzip the above array into labels and counts
 
-        // labels is the viewing 1% as .01
+        // labels is the viewing 1.1% as .011
         const labels = trimArray.map((e) => e[0]);
-        // displaylabels is the same but `1%`
+        // displaylabels is the same but `1.10%`
         const displayLabels = trimArray.map((e) => `${(parseFloat(e[0])*100).toFixed(2)}%`);
         const counts = trimArray.map((e) => e[1]);
 
