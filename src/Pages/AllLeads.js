@@ -6,9 +6,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useEffect } from "react";
 import DatePicker from "react-date-picker";
-import PieChart from "../components/Graphs/PieGraph";
-import LineChart from "../components/Graphs/LineGraph";
-import Mixed from "../components/Graphs/Mixed";
 import Overview from "../components/Graphs/DatasetOverviewChart";
 function AllLeads() {
     const [value, setValue] = React.useState(new Date());

@@ -60,7 +60,7 @@ const randomColor = function (str) {
 export default function Overview({ year }) {
     const [alldata, setAlldata] = useState([]);
     const token = useMemo(() => localStorage.getItem('token'), []);
-    const [id, setId] = useContext(SelectedContext);
+    const [id] = useContext(SelectedContext);
     useEffect(() => {
         (() => {
             // short circuit the axios request if id is not available
@@ -75,7 +75,7 @@ export default function Overview({ year }) {
             setAlldata(data);
         });
     }, [id, token]);
-
+    
     const chartJSdataCounts = useMemo(() => {
         // these are the array of header and count per month
         const headers = new Set();
@@ -119,43 +119,6 @@ export default function Overview({ year }) {
                     data: chartCounts.map((month) => month.get(e)), //labels.map(() => Math.random() * 1000),
                 };
             }),
-            // datasets: [
-            //     // {
-            //     //     type: "line",
-            //     //     stack: "stack2",
-
-            //     //     label: "Dataset 1",
-            //     //     borderColor: "rgb(163, 182, 235) ",
-            //     //     borderWidth: 2,
-            //     //     fill: false,
-            //     //     data: labels.map(() => Math.random() * 1000),
-            //     // },
-            //     {
-            //         type: "bar",
-            //         label: chartCounts??"Warm",
-            //         stack: "stack1",
-
-            //         backgroundColor: "rgb(255, 255,0)",
-            //         data: chartCounts.map(e=>e.get())//labels.map(() => Math.random() * 1000),
-            //     },
-            //     {
-            //         type: "bar",
-            //         stack: 'stack1',
-            //         label: "Cold",
-            //         backgroundColor: "rgb(205,92,92)",
-            //         data: labels.map(e=>0),
-            //         borderColor: "white",
-            //         borderWidth: 2,
-            //     },
-            //     {
-            //         type: "bar",
-            //         label: "Ordered",
-            //         stack: "stack1",
-
-            //         backgroundColor: "rgb(144,238,144)",
-            //         data: labels.map(e=>0),
-            //     },
-            // ],
         };
     }, [year, alldata]);
 

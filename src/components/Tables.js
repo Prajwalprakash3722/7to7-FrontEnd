@@ -8,7 +8,7 @@ import { ColumnFilter } from './misc/ColFilter';
 export default function PredTables() {
     const token = useMemo(() => localStorage.getItem('token'), []);
     const [isReady, setIsReady] = useState(false);
-    const [id, setId] = useContext(SelectedContext);
+    const [id] = useContext(SelectedContext);
     const [tableData, setTableData] = useState([]);
     const [tableHeaders, setTableHeaders] = useState([
         { Header: 'Preducctions', columns: [] },
@@ -30,7 +30,6 @@ export default function PredTables() {
             else return new Promise((res) => res({ data: [] }));
         })()
             .then((res) => {
-                const data = res.data;
                 // set the headers
                 if (!res.data[0]) {
                     // no first element for comparison
