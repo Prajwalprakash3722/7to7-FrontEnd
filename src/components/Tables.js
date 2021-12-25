@@ -4,6 +4,7 @@ import axios from 'axios';
 import api_link from '../etc/api';
 import { useTable, usePagination, useFilters } from 'react-table';
 import { ColumnFilter } from './misc/ColFilter';
+import { Link } from 'react-router-dom';
 
 export default function PredTables() {
     const token = useMemo(() => localStorage.getItem('token'), []);
@@ -243,7 +244,29 @@ export default function PredTables() {
             </div>
         </>
     ) : (
-        <>{id === null || id === undefined ? 'No model' : 'Loading'}</>
+        <>
+            {id === null || id === undefined ? (
+                <>
+                    <div className="flex flex-col items-center justify-center m-5 p-5">
+                        <h1 className="text-gray-500 text-5xl m-5 ">
+                            No model selected
+                        </h1>
+                        <h2 className="text-neutral-500 text-2xl m-5">
+                            Please select a model from the
+                            <Link to="/add">
+                                <span className="text-blue-500 underline">
+                                    {' '}
+                                    Home Page{' '}
+                                </span>
+                            </Link>
+                            to view the data
+                        </h2>
+                    </div>
+                </>
+            ) : (
+                'Loading'
+            )}
+        </>
     );
 
     // table stuff
