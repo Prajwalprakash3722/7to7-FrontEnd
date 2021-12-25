@@ -1,55 +1,56 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
-import { SelectedContext } from "../etc/context";
-import axios from "axios";
-import api_link from "../etc/api";
-import { useTable, usePagination, useFilters } from "react-table";
-import { ColumnFilter } from "./misc/ColFilter";
+import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { SelectedContext } from '../etc/context';
+import axios from 'axios';
+import api_link from '../etc/api';
+import { useTable, usePagination, useFilters } from 'react-table';
+import { ColumnFilter } from './misc/ColFilter';
 
 export default function PredTables() {
-    const token = useMemo(() => localStorage.getItem("token"), []);
+    const token = useMemo(() => localStorage.getItem('token'), []);
     const [isReady, setIsReady] = useState(false);
     const [id, setId] = useContext(SelectedContext);
     const [tableData, setTableData] = useState([]);
     const [tableHeaders, setTableHeaders] = useState([
-        { Header: "Preducctions", columns: [] },
+        { Header: 'Preducctions', columns: [] },
     ]);
     const colFilterer = useMemo(() => {
         return {
-          Filter: ColumnFilter,
+            Filter: ColumnFilter,
         };
-      }, []);
+    }, []);
 
     useEffect(() => {
         console.log(`Hey look our id is ${id}`);
         (() => {
             // short circuit the axios request if id is not available
-            if(id)
-            return axios.get(`${api_link}/api/models/${id ?? 1}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });else return new Promise((res)=>res({data:[]}))
+            if (id)
+                return axios.get(`${api_link}/api/models/${id ?? 1}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+            else return new Promise((res) => res({ data: [] }));
         })()
             .then((res) => {
                 const data = res.data;
                 // set the headers
                 if (!res.data[0]) {
                     // no first element for comparison
-                    console.warn("No headers ;_;");
+                    console.warn('No headers ;_;');
                     return;
                 }
                 setIsReady(true);
                 const settableheaders = [
                     {
-                        Header: "Data input table",
+                        Header: 'Data input table',
                         columns: Object.keys(res.data[0] ?? {}).map((e) => {
                             return {
                                 Header: e,
                                 accessor:
-                                    e === ""
+                                    e === ''
                                         ? (data) => {
-                                              return data[""];
+                                              return data[''];
                                           }
                                         : e,
-                                id: e === "" ? "id" : e,
+                                id: e === '' ? 'id' : e,
                             };
                         }),
                     },
@@ -60,7 +61,7 @@ export default function PredTables() {
 
                 //   console.log(res);
             })
-            .catch((e) => console.error("Model predict get failed", e));
+            .catch((e) => console.error('Model predict get failed', e));
     }, [id]);
 
     const {
@@ -87,10 +88,10 @@ export default function PredTables() {
             /* tableData */
 
             data: tableData,
-            defaultColumn:colFilterer
+            defaultColumn: colFilterer,
         },
         useFilters,
-        usePagination,
+        usePagination
     );
 
     // Render the UI for your table
@@ -113,11 +114,11 @@ export default function PredTables() {
             </pre> */}
             <div
                 style={{
-                    display: "block",
-                    maxWidth: "100%",
-                    overflowX: "scroll",
+                    display: 'block',
+                    maxWidth: '100%',
+                    overflowX: 'scroll',
                     // overflowY: "hidden",
-                    borderBottom: "1px solid black",
+                    borderBottom: '1px solid black',
                 }}
             >
                 <table {...getTableProps()} className="shadow-lg bg-white">
@@ -129,10 +130,12 @@ export default function PredTables() {
                                         className="bg-blue-100 border text-center"
                                         {...column.getHeaderProps()}
                                     >
-                                        <div>
-                                        {column.render("Header")}</div>
+                                        <div>{column.render('Header')}</div>
                                         <br />
-                                        <div>{column.canFilter && column.render("Filter")}</div>
+                                        <div>
+                                            {column.canFilter &&
+                                                column.render('Filter')}
+                                        </div>
                                     </th>
                                 ))}
                             </tr>
@@ -149,7 +152,7 @@ export default function PredTables() {
                                                 {...cell.getCellProps()}
                                                 className="border text-center px-8 py-4 group-hover:bg-gray-100"
                                             >
-                                                {cell.render("Cell")}
+                                                {cell.render('Cell')}
                                             </td>
                                         );
                                     })}
@@ -170,37 +173,37 @@ export default function PredTables() {
                     onClick={() => gotoPage(0)}
                     disabled={!canPreviousPage}
                 >
-                    {"<<"}
-                </button>{" "}
+                    {'<<'}
+                </button>{' '}
                 <button
                     className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                     onClick={() => previousPage()}
                     disabled={!canPreviousPage}
                 >
-                    {"<"}
-                </button>{" "}
+                    {'<'}
+                </button>{' '}
                 <button
                     onClick={() => nextPage()}
                     disabled={!canNextPage}
                     className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                 >
-                    {">"}
-                </button>{" "}
+                    {'>'}
+                </button>{' '}
                 <button
                     onClick={() => gotoPage(pageCount - 1)}
                     className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                     disabled={!canNextPage}
                 >
-                    {">>"}
-                </button>{" "}
+                    {'>>'}
+                </button>{' '}
                 <span>
-                    Page{" "}
+                    Page{' '}
                     <strong>
                         {pageIndex + 1} of {pageOptions.length}
-                    </strong>{" "}
+                    </strong>{' '}
                 </span>
                 <span>
-                    | Go to page:{" "}
+                    | Go to page:{' '}
                     {/* <input
                             type="number"
                             defaultValue={pageIndex + 1}
@@ -225,7 +228,7 @@ export default function PredTables() {
                     />
                 </span>
                 {/* <div> */}
-                {/* </div> */}{" "}
+                {/* </div> */}{' '}
                 <select
                     value={pageSize}
                     onChange={(e) => {
@@ -239,11 +242,11 @@ export default function PredTables() {
                         </option>
                     ))}
                 </select>
-                <div style={{ marginTop: "1rem" }} />
+                <div style={{ marginTop: '1rem' }} />
             </div>
         </>
     ) : (
-        <>{id === null || id === undefined ? "No model" : "Loading"}</>
+        <>{id === null || id === undefined ? 'No model' : 'Loading'}</>
     );
 
     // table stuff

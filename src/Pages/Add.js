@@ -1,26 +1,26 @@
-import React, { useEffect, useState, useContext } from "react";
-import { FileDrop } from "react-file-drop";
-import "./Add.css";
-import { SelectedContext } from "../etc/context";
-import axios from "axios";
-import api_link from "../etc/api";
+import React, { useEffect, useState, useContext } from 'react';
+import { FileDrop } from 'react-file-drop';
+import './Add.css';
+import { SelectedContext } from '../etc/context';
+import axios from 'axios';
+import api_link from '../etc/api';
 const Add = () => {
-    const [token, setToken] = useState(() => localStorage.getItem("token"));
+    const [token, setToken] = useState(() => localStorage.getItem('token'));
     const [success, setSuccess] = useState(false);
     const styles = {
-        border: "1px solid black",
+        border: '1px solid black',
         width: 600,
-        color: "black",
+        color: 'black',
         padding: 20,
     };
 
     const [file, setFile] = useState(null);
-    const [fileName, setFileName] = useState("");
-    const [fileType, setFileType] = useState("");
-    const [fileSize, setFileSize] = useState("");
-    const [fileData, setFileData] = useState("");
+    const [fileName, setFileName] = useState('');
+    const [fileType, setFileType] = useState('');
+    const [fileSize, setFileSize] = useState('');
+    const [fileData, setFileData] = useState('');
     const [options, setOptions] = useState([]);
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState('');
 
     // global state to use
     const [globalSelected, setGlobalSelected] = useContext(SelectedContext);
@@ -31,19 +31,19 @@ const Add = () => {
         setFileType(files[0].type);
         setFileSize(files[0].size);
         setFileData(files[0].data);
-        if (fileType === "text/csv") {
-            console.log("Good File Type");
+        if (fileType === 'text/csv') {
+            console.log('Good File Type');
         } else {
-            console.error("Bad File Type");
+            console.error('Bad File Type');
         }
     };
 
     useEffect(() => {
         axios
-            .get(api_link + "/api/models", {
+            .get(api_link + '/api/models', {
                 headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
                 },
             })
             .then((res) => {
@@ -53,7 +53,7 @@ const Add = () => {
 
     const selectModel = (selectedOption) => {
         setSelectedOption(selectedOption);
-        console.log("selectedoption", selectedOption);
+        console.log('selectedoption', selectedOption);
         setGlobalSelected(selectedOption.id);
         // localStorage.setItem("selected", selectedOption.id);
     };
@@ -81,7 +81,7 @@ const Add = () => {
                                             Success
                                         </span>
                                         <p className="text-sm text-gray-600 dark:text-gray-200">
-                                            You have selected{" "}
+                                            You have selected{' '}
                                             {selectedOption.model_desc}
                                         </p>
                                     </div>
@@ -125,11 +125,11 @@ const Add = () => {
                                 <div className="dropdown inline-block relative">
                                     <button
                                         className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center"
-                                        style={{ transition: "width 2s" }}
+                                        style={{ transition: 'width 2s' }}
                                     >
                                         <span className="mr-1 ">
                                             {selectedOption?.model_desc ??
-                                                "Select Model for Base Prediction"}
+                                                'Select Model for Base Prediction'}
                                             {/* {options.length > 0 ? options[0].model_desc : "Select Model"} */}
                                         </span>
                                         <svg
@@ -137,7 +137,7 @@ const Add = () => {
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20"
                                         >
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
+                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
                                         </svg>
                                     </button>
                                     <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
@@ -167,7 +167,7 @@ const Add = () => {
                                             <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.model_desc ?? (
                                                     <span
-                                                        style={{ color: "red" }}
+                                                        style={{ color: 'red' }}
                                                     >
                                                         Not selected
                                                     </span>
@@ -181,7 +181,7 @@ const Add = () => {
                                             <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.model_desc ?? (
                                                     <span
-                                                        style={{ color: "red" }}
+                                                        style={{ color: 'red' }}
                                                     >
                                                         Not selected
                                                     </span>
@@ -195,7 +195,7 @@ const Add = () => {
                                             <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.data_loc ?? (
                                                     <span
-                                                        style={{ color: "red" }}
+                                                        style={{ color: 'red' }}
                                                     >
                                                         Not selected
                                                     </span>
@@ -209,7 +209,7 @@ const Add = () => {
                                             <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.pred_loc ?? (
                                                     <span
-                                                        style={{ color: "red" }}
+                                                        style={{ color: 'red' }}
                                                     >
                                                         Not selected
                                                     </span>
@@ -223,7 +223,7 @@ const Add = () => {
                                             <td className="text-gray-700 bg-slate-200 m-5 p-5">
                                                 {selectedOption.createdAt ?? (
                                                     <span
-                                                        style={{ color: "red" }}
+                                                        style={{ color: 'red' }}
                                                     >
                                                         Not selected
                                                     </span>

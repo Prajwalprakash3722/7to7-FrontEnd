@@ -48,7 +48,9 @@
     ]
   },
   "prettier": {
-    "tabWidth": 4
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",

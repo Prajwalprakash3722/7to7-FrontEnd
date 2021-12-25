@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -8,11 +8,11 @@ import {
     LineElement,
     Legend,
     Tooltip,
-} from "chart.js";
-import { Chart } from "react-chartjs-2";
-import { SelectedContext } from "../../etc/context";
-import axios from "axios";
-import api_link from "../../etc/api";
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import { SelectedContext } from '../../etc/context';
+import axios from 'axios';
+import api_link from '../../etc/api';
 ChartJS.register(
     LinearScale,
     CategoryScale,
@@ -23,21 +23,34 @@ ChartJS.register(
     Tooltip
 );
 
-const labels = ["January", "February", "March", "April", "May", "June", "July",'August','September','October','November','December'];
+const labels = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
 
 // color based on string
-const randomColor = function(str) {
+const randomColor = function (str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     let colour = '#';
     for (let i = 0; i < 3; i++) {
-      let value = (hash >> (i * 8)) & 0xFF;
-      colour += ('00' + value.toString(16)).substr(-2);
+        let value = (hash >> (i * 8)) & 0xff;
+        colour += ('00' + value.toString(16)).substr(-2);
     }
     return colour;
-  }
+};
 
 /**
  *
@@ -46,21 +59,21 @@ const randomColor = function(str) {
  */
 export default function Overview({ year }) {
     const [alldata, setAlldata] = useState([]);
-    const token = useMemo(() => localStorage.getItem("token"), []);
+    const token = useMemo(() => localStorage.getItem('token'), []);
     const [id, setId] = useContext(SelectedContext);
     useEffect(() => {
         (() => {
             // short circuit the axios request if id is not available
-            if(id!==undefined && id!==null)
-            return axios.get(`${api_link}/api/models/preds/${id ?? 1}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });else return new Promise((res)=>res({data:[]}))
-        })()
-            .then((res) => {
-                const data = res.data;
-                console.log('got data',data)
-                setAlldata(data);
-            });
+            if (id !== undefined && id !== null)
+                return axios.get(`${api_link}/api/models/preds/${id ?? 1}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+            else return new Promise((res) => res({ data: [] }));
+        })().then((res) => {
+            const data = res.data;
+            console.log('got data', data);
+            setAlldata(data);
+        });
     }, [id, token]);
 
     const chartJSdataCounts = useMemo(() => {
@@ -68,7 +81,7 @@ export default function Overview({ year }) {
         const headers = new Set();
         const chartCounts = alldata
             .filter((e) => {
-                const dateString = e["Enquiry Date"]; // Oct 23
+                const dateString = e['Enquiry Date']; // Oct 23
                 const dateyear = parseInt(dateString.split(/-|\//)[2]);
                 return year === dateyear;
             })
@@ -76,15 +89,15 @@ export default function Overview({ year }) {
                 (total, element) => {
                     // console.log(element);
                     const month =
-                        parseInt(element["Enquiry Date"].split(/-|\//)[1]) - 1;
+                        parseInt(element['Enquiry Date'].split(/-|\//)[1]) - 1;
                     // if (element["Status"] === "0")
                     // console.log('example',element['Status'])
                     // console.log("setting",element['Status'],(total[month].get( element["Status"])??0)+1)
                     total[month].set(
-                        element["Status"],
-                        (total[month].get(element["Status"]) ?? 0) + 1
+                        element['Status'],
+                        (total[month].get(element['Status']) ?? 0) + 1
                     );
-                    headers.add(element["Status"]);
+                    headers.add(element['Status']);
                     return total;
                 },
                 new Array(12).fill(undefined).map((e) => new Map())
@@ -95,12 +108,12 @@ export default function Overview({ year }) {
         return {
             labels,
             datasets: [...headers].map((e) => {
-                const label = (e==='0'?'Dropped':(e==='1'?'Ordered':e))
+                const label = e === '0' ? 'Dropped' : e === '1' ? 'Ordered' : e;
                 return {
-                    type: "bar",
+                    type: 'bar',
                     // for 0,1 rest are default
                     label,
-                    stack: "stack1",
+                    stack: 'stack1',
 
                     backgroundColor: randomColor(label),
                     data: chartCounts.map((month) => month.get(e)), //labels.map(() => Math.random() * 1000),
@@ -153,11 +166,11 @@ export default function Overview({ year }) {
             data={chartJSdataCounts}
             options={{
                 onClick: (x, y) => {
-                    console.log("kekw", x, y);
+                    console.log('kekw', x, y);
                 },
             }}
         />
     ) : (
-        "No model chosen"
+        'No model chosen'
     );
 }
