@@ -42,7 +42,7 @@ export default function PredTables() {
                         Header: 'Data input table',
                         columns: Object.keys(res.data[0] ?? {}).map((e) => {
                             return {
-                                Header: e===''?'#':e,
+                                Header: e === '' ? '#' : e,
                                 accessor: (data) => {
                                     return data[e];
                                 },
@@ -116,6 +116,7 @@ export default function PredTables() {
                     // overflowY: "hidden",
                     borderBottom: '1px solid black',
                 }}
+                className="bg-green-200"
             >
                 <table {...getTableProps()} className="shadow-lg bg-white">
                     <thead>

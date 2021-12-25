@@ -57,7 +57,6 @@ const Add = () => {
         setGlobalSelected(selectedOption.id);
         // localStorage.setItem("selected", selectedOption.id);
     };
-
     return (
         <>
             {token && (
@@ -160,76 +159,88 @@ const Add = () => {
                                         ))}
                                     </ul>
                                     <table className="mt-44">
-                                        <tr>
-                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
-                                                Description
-                                            </td>
-                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
-                                                {selectedOption.model_desc ?? (
-                                                    <span
-                                                        style={{ color: 'red' }}
-                                                    >
-                                                        Not selected
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
-                                                Model location
-                                            </td>
-                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
-                                                {selectedOption.model_desc ?? (
-                                                    <span
-                                                        style={{ color: 'red' }}
-                                                    >
-                                                        Not selected
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
-                                                Data location
-                                            </td>
-                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
-                                                {selectedOption.data_loc ?? (
-                                                    <span
-                                                        style={{ color: 'red' }}
-                                                    >
-                                                        Not selected
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
-                                                Prediction data location
-                                            </td>
-                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
-                                                {selectedOption.pred_loc ?? (
-                                                    <span
-                                                        style={{ color: 'red' }}
-                                                    >
-                                                        Not selected
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-gray-700 bg-blue-100 m-5 p-5">
-                                                Created at:
-                                            </td>
-                                            <td className="text-gray-700 bg-slate-200 m-5 p-5">
-                                                {selectedOption.createdAt ?? (
-                                                    <span
-                                                        style={{ color: 'red' }}
-                                                    >
-                                                        Not selected
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                    Description
+                                                </td>
+                                                <td className="text-gray-700 bg-slate-200 m-5 p-5">
+                                                    {selectedOption.model_desc ?? (
+                                                        <span
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            Not selected
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                    Model location
+                                                </td>
+                                                <td className="text-gray-700 bg-slate-200 m-5 p-5">
+                                                    {selectedOption.model_desc ?? (
+                                                        <span
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            Not selected
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                    Data location
+                                                </td>
+                                                <td className="text-gray-700 bg-slate-200 m-5 p-5">
+                                                    {selectedOption.data_loc ?? (
+                                                        <span
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            Not selected
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                    Prediction data location
+                                                </td>
+                                                <td className="text-gray-700 bg-slate-200 m-5 p-5">
+                                                    {selectedOption.pred_loc ?? (
+                                                        <span
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            Not selected
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                    Created at:
+                                                </td>
+                                                <td className="text-gray-700 bg-slate-200 m-5 p-5">
+                                                    {selectedOption.created_at ?? (
+                                                        <span
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            Not selected
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 {/* <div>
