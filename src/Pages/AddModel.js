@@ -6,6 +6,8 @@ import { masterListColumns } from '../etc/columns';
 import { useTable } from 'react-table';
 function AddModel() {
     const token = useMemo(()=>localStorage.getItem('token'),[])
+    // above but encoded to be able to send as query in form
+    const urlEncodedToken = useMemo(()=>encodeURIComponent(token),[token]);
     const [model, setModel] = useState({
         description: '',
         model_location: '',
@@ -191,7 +193,7 @@ function AddModel() {
                     <div className="w-full max-w-xs">
                         <form
                             method="POST"
-                            action={`${api_link}/api/files`}
+                            action={`${api_link}/api/files?token=${urlEncodedToken}`}
                             onSubmit={(e) => {
                                 Promise.allSettled([
                                     mutateDataFilesList(),
