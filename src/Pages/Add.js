@@ -229,7 +229,7 @@ const Add = () => {
                                                     Created at:
                                                 </td>
                                                 <td className="text-gray-700 bg-slate-200 m-5 p-5">
-                                                    {selectedOption.created_at ?? (
+                                                    {selectedOption.createdAt ?? (
                                                         <span
                                                             style={{
                                                                 color: 'red',

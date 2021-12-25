@@ -341,7 +341,7 @@ function Closed() {
                 </h1>
                 <h2 className="text-neutral-500 text-2xl m-5">
                     Please select a model from the
-                    <Link to="/add">
+                    <Link to="/">
                         <span className="text-blue-500 underline">
                             {' '}
                             Home Page{' '}

@@ -13,6 +13,7 @@ import { Chart } from 'react-chartjs-2';
 import { SelectedContext } from '../../etc/context';
 import axios from 'axios';
 import api_link from '../../etc/api';
+import { Link } from 'react-router-dom';
 ChartJS.register(
     LinearScale,
     CategoryScale,
@@ -152,6 +153,22 @@ export default function Overview({ year }) {
             }}
         />
     ) : (
-        'No model chosen'
+        <>
+            <div className="flex flex-col items-center justify-center m-5 p-5">
+                <h1 className="text-gray-500 text-5xl m-5 ">
+                    No model selected
+                </h1>
+                <h2 className="text-neutral-500 text-2xl m-5">
+                    Please select a model from the
+                    <Link to="/">
+                        <span className="text-blue-500 underline">
+                            {' '}
+                            Home Page{' '}
+                        </span>
+                    </Link>
+                    to view the data
+                </h2>
+            </div>
+        </>
     );
 }
