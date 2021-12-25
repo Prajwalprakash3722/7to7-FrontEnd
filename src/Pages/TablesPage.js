@@ -1,5 +1,4 @@
 import React from 'react';
-import PredTables from '../components/PredTable';
 import Tables from '../components/Tables';
 
 function TablesPage() {
