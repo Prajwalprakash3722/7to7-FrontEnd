@@ -5,19 +5,18 @@ import api_link from '../etc/api';
 import { masterListColumns } from '../etc/columns';
 import { useTable } from 'react-table';
 function AddModel() {
-    const token = useMemo(()=>localStorage.getItem('token'),[])
-    // above but encoded to be able to send as query in form
-    const urlEncodedToken = useMemo(()=>encodeURIComponent(token),[token]);
+    const token = useMemo(() => localStorage.getItem('token'), []);
+    const urlEncodedToken = useMemo(() => localStorage.getItem('token'), []);
     const [model, setModel] = useState({
         description: '',
         model_location: '',
         data_source: '',
     });
 
-    const {
-        data: masterList,
-        mutator: mutateMasterList,
-    } = useRefreshableData(`${api_link}/api/models`, []);
+    const { data: masterList, mutator: mutateMasterList } = useRefreshableData(
+        `${api_link}/api/models`,
+        []
+    );
 
     const masterListDataColumns = useMemo(() => masterListColumns, []);
     // const update
@@ -39,16 +38,21 @@ function AddModel() {
     } = useRefreshableData(`${api_link}/api/files/data`, []);
 
     return (
+        /*
+         * * DONE styling
+         */
         <>
             <div>
-                {/* TODO: make this a styled table */}
-                <div>
+                <div className="m-5 flex flex-col items-center justify-center">
                     <table {...getTableProps()}>
                         <thead>
                             {headerGroups.map((headerGroup) => (
                                 <tr {...headerGroup.getHeaderGroupProps()}>
                                     {headerGroup.headers.map((column) => (
-                                        <th {...column.getHeaderProps()}>
+                                        <th
+                                            className="bg-blue-100 border text-center"
+                                            {...column.getHeaderProps()}
+                                        >
                                             {column.render('Header')}
                                         </th>
                                     ))}
@@ -59,23 +63,49 @@ function AddModel() {
                             {rows.map((row, i) => {
                                 prepareRow(row);
                                 return (
-                                    <tr {...row.getRowProps()}>
+                                    <tr
+                                        className="group"
+                                        {...row.getRowProps()}
+                                    >
                                         {row.cells.map((cell) => {
                                             return (
-                                                <td {...cell.getCellProps()}>
+                                                <td
+                                                    className="border text-center px-8 py-4 group-hover:bg-gray-100"
+                                                    {...cell.getCellProps()}
+                                                >
                                                     {cell.render('Cell')}
                                                 </td>
                                             );
                                         })}
                                         <td>
-                                            {/* TODO - please beautify */}
-                                            <button type="button" onClick={(e)=>{
-                                                axios.delete(`${api_link}/api/models/${row.original.id}`,{
-                                                    headers:{Authorization:`Bearer ${token}`}
-                                                }).then(e=>{
-                                                    return mutateMasterList();
-                                                }).catch(e=>console.log('error updating and deleting master'))
-                                            }}>Del</button>
+                                            <button
+                                                className="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                                type="button"
+                                                onClick={(e) => {
+                                                    axios
+                                                        .delete(
+                                                            `${api_link}/api/models/${row.original.id}`,
+                                                            {
+                                                                headers: {
+                                                                    Authorization: `Bearer ${token}`,
+                                                                },
+                                                            }
+                                                        )
+                                                        .then((e) => {
+                                                            window.alert(
+                                                                'Model Deleted'
+                                                            );
+                                                            return mutateMasterList();
+                                                        })
+                                                        .catch((e) =>
+                                                            console.log(
+                                                                'error updating and deleting master'
+                                                            )
+                                                        );
+                                                }}
+                                            >
+                                                Del
+                                            </button>
                                         </td>
                                     </tr>
                                 );
@@ -94,13 +124,20 @@ function AddModel() {
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 axios
-                                    .post(`${api_link}/api/models`, {
-                                        model_desc: e.target.model_desc.value,
-                                        model_loc: e.target.modelfile.value,
-                                        data_loc: e.target.datafile.value,
-                                    },{
-                                        headers:{Authorization:`Bearer ${token}`}
-                                    })
+                                    .post(
+                                        `${api_link}/api/models`,
+                                        {
+                                            model_desc:
+                                                e.target.model_desc.value,
+                                            model_loc: e.target.modelfile.value,
+                                            data_loc: e.target.datafile.value,
+                                        },
+                                        {
+                                            headers: {
+                                                Authorization: `Bearer ${token}`,
+                                            },
+                                        }
+                                    )
                                     .then((res) => {
                                         console.log(res);
                                         console.log(res.data);
@@ -206,7 +243,12 @@ function AddModel() {
                             encType="multipart/form-data"
                         >
                             <input type="file" name="misc"></input>
-                            <button type="submit">Submit</button>
+                            <button
+                                className="m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="submit"
+                            >
+                                Submit
+                            </button>
                         </form>
                         {/* this iframe will make the form request, itll be hidden tho */}
                         <iframe
