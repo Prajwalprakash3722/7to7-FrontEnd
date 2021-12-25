@@ -253,7 +253,7 @@ function Closed() {
             <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2">
                 <div className="bg-gray-50 p-5 m-2">
                     <p>
-                        <span className="text-gray-500">Expense :</span>
+                        <span className="text-gray-500">Probability distribution(Click for detail):</span>
                     </p>
 
                     <PieChart

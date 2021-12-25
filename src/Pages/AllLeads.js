@@ -49,7 +49,7 @@ function AllLeads() {
         </div> */}
                 <div className="bg-gray-50 p-5 m-2">
                     <p>
-                        <span className="text-gray-500">Expense :</span>
+                        <span className="text-gray-500">Overview :</span>
                     </p>
                     {/* <LineChart height={200} width={200} /> */}
                     {/* <Mixed />
