@@ -1,24 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 // import RotateLeftIcon from "@mui/icons-material/RotateLeft";
-import api_link from "../etc/api";
+import api_link from '../etc/api';
 function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [errorMessage, setErrormessage] = useState("");
+    const [errorMessage, setErrormessage] = useState('');
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch(api_link + "/api/auth/login", {
-            method: "POST",
+        fetch(api_link + '/api/auth/login', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 email: email,
@@ -31,15 +31,15 @@ function Login() {
                     setError(true);
                     setErrormessage(data.message);
                 } else if (data.token) {
-                    localStorage.setItem("token", data.token);
+                    localStorage.setItem('token', data.token);
                     setSuccess(true);
                     setTimeout(() => {
-                        window.location.assign("/");
+                        window.location.assign('/');
                     }, 1500);
                 } else {
                     setError(true);
                     setErrormessage(
-                        "Something went wrong, Please try again later!"
+                        'Something went wrong, Please try again later!'
                     );
                     setLoading(false);
                     setSuccess(false);
@@ -142,7 +142,7 @@ function Login() {
                                                 className="animate-spin h-5 w-5 mr-3 ..."
                                                 viewBox="0 0 24 24"
                                             >
-                                                {" "}
+                                                {' '}
                                             </svg>
                                         ) : (
                                             <span>Login</span>
@@ -153,13 +153,13 @@ function Login() {
                                     </button>
                                 </div>
                                 <div>
-                                    Don't Have a Account,{" "}
+                                    Don't Have a Account,{' '}
                                     <Link
                                         to="/register"
                                         className="text-blue-400"
                                     >
                                         click here
-                                    </Link>{" "}
+                                    </Link>{' '}
                                     to Register.
                                 </div>
                             </form>

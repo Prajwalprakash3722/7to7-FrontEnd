@@ -250,7 +250,11 @@ export default function PredTables() {
                     </div>
                 </>
             ) : (
-                'Loading'
+                <>
+                    <div class=" flex justify-center items-center min-h-screen">
+                        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+                    </div>
+                </>
             )}
         </>
     );
