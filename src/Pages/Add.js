@@ -8,10 +8,19 @@ const Add = () => {
     const [token, setToken] = useState(() => localStorage.getItem('token'));
     const [success, setSuccess] = useState(false);
     const styles = {
-        border: '1px solid black',
+        // border: '1px solid black',
         width: 600,
         color: 'black',
         padding: 20,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        margin: '0 auto',
+        marginTop: '10%',
+        marginBottom: '10%',
+        backgroundColor: 'white',
     };
 
     const [file, setFile] = useState(null);
@@ -93,15 +102,37 @@ const Add = () => {
                     </h1>
                     <div className="lg:flex flex-col justify-center items-center">
                         <div className="flex flex-col items-center">
-                            <div style={styles}>
-                                <FileDrop
-                                    onDrop={(files, event) =>
-                                        console.log(files, event)
-                                    }
-                                >
-                                    Drop CSV file here
-                                </FileDrop>
-                            </div>
+                            <label className="custom">
+                                <div style={styles}>
+                                    <form
+                                        method="POST"
+                                        // action={`${api_link}/api/files?token=${urlEncodedToken}`}
+                                        onSubmit={(e) => {
+                                            Promise.allSettled([
+                                                // mutateDataFilesList(),
+                                                // mutateModelList(),
+                                            ])
+                                                .then((e) =>
+                                                    alert('done uploading')
+                                                )
+                                                .catch((e) =>
+                                                    console.log('What happened')
+                                                );
+                                        }}
+                                        target="uploadtarget"
+                                        encType="multipart/form-data"
+                                    >
+                                        <input type="file" name="misc"></input>
+                                    </form>
+                                    <FileDrop
+                                        onDrop={(files, event) =>
+                                            console.log(files, event)
+                                        }
+                                    >
+                                        Drop or click to upload CSV file here
+                                    </FileDrop>
+                                </div>
+                            </label>
                             <button className="m-2 flex items-center justify-center w-full px-2 py-1 text-white transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none sm:w-auto sm:mx-1 hover:bg-blue-500 focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
