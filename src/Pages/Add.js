@@ -98,11 +98,11 @@ const Add = () => {
                         </>
                     )}
                     <h1 className="lg:text-3xl font-bold text-center m-5 p-5">
-                        Drop like a Hot Potato
+                        Select a Model
                     </h1>
                     <div className="lg:flex flex-col justify-center items-center">
                         <div className="flex flex-col items-center">
-                            <label className="custom">
+                            {/* <label className="custom">
                                 <div style={styles}>
                                     <form
                                         method="POST"
@@ -149,7 +149,7 @@ const Add = () => {
                                     />
                                 </svg>
                                 <span className="mx-1">Upload</span>
-                            </button>
+                            </button> */}
 
                             <div className="p-5 flex flex-col items-center ">
                                 <div className="dropdown inline-block relative">
