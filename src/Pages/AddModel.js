@@ -252,7 +252,10 @@ function AddModel() {
                             target="uploadtarget"
                             encType="multipart/form-data"
                         >
-                            <input type="file" name="misc"></input>
+                            <label className="custom">
+                                Add File
+                                <input type="file" name="misc"></input>
+                            </label>
                             <button
                                 className="m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 type="submit"

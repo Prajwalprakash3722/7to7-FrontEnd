@@ -177,9 +177,6 @@ const Add = () => {
                                                     href="#"
                                                     className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block cursor-pointer"
                                                     onClick={() => {
-                                                        // setSelectedOption(
-                                                        //     option
-                                                        // );
                                                         selectModel(option);
                                                         setSuccess(true);
                                                         setTimeout(() => {
