@@ -251,8 +251,9 @@ function AddModel() {
                             }}
                             target="uploadtarget"
                             encType="multipart/form-data"
+                            style={{textAlign:'center'}}
                         >
-                            <label className="custom">
+                            <label className="custom" style={{margin:'auto'}}>
                                 Add File
                                 <input type="file" name="misc"></input>
                             </label>
@@ -262,7 +263,7 @@ function AddModel() {
                             >
                                 Submit
                             </button>
-                        </form>
+                        </form> {new Array(3).fill(undefined).map(e=><br />)}
                         {/* this iframe will make the form request, itll be hidden tho */}
                         <iframe
                             title="uploadtarget"

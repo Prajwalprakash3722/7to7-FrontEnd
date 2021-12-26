@@ -14,15 +14,15 @@ import { SelectedContext } from '../../etc/context';
 import axios from 'axios';
 import api_link from '../../etc/api';
 import { Link } from 'react-router-dom';
-ChartJS.register(
-    LinearScale,
-    CategoryScale,
-    BarElement,
-    PointElement,
-    LineElement,
-    Legend,
-    Tooltip
-);
+// ChartJS.register(
+//     LinearScale,
+//     CategoryScale,
+//     BarElement,
+//     PointElement,
+//     LineElement,
+//     Legend,
+//     Tooltip
+// );
 
 const labels = [
     'January',

@@ -80,7 +80,7 @@ export default function NavBar() {
                                             'py-4 px-2'
                                         )}
                                     >
-                                        New Lead
+                                        {/* New Lead */}Select Leads
                                     </Link>
                                     <Link
                                         to="/allleads"
@@ -173,7 +173,7 @@ export default function NavBar() {
                                             'py-4 px-2'
                                         )}
                                     >
-                                        Add Model
+                                        Manage Models
                                     </Link>
                                 </div>
                                 <div className="hidden md:flex items-center space-x-3 ">
