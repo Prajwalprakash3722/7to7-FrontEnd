@@ -237,7 +237,7 @@ function AddModel() {
                     Upload artifacts (.csv and .rds)
                 </h1>
                 <div className="flex flex-col items-center justify-center">
-                    <div className="w-full max-w-xs">
+                    <div className=" w-full max-w-xs">
                         <form
                             method="POST"
                             action={`${api_link}/api/files?token=${urlEncodedToken}`}
@@ -252,16 +252,18 @@ function AddModel() {
                             target="uploadtarget"
                             encType="multipart/form-data"
                         >
-                            <label className="custom">
-                                Add File
-                                <input type="file" name="misc"></input>
-                            </label>
-                            <button
-                                className="m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="submit"
-                            >
-                                Submit
-                            </button>
+                            <div className="flex flex-col">
+                                <label className="custom">
+                                    Add File
+                                    <input type="file" name="misc"></input>
+                                </label>
+                                <button
+                                    className="m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    type="submit"
+                                >
+                                    Submit
+                                </button>
+                            </div>
                         </form>
                         {/* this iframe will make the form request, itll be hidden tho */}
                         <iframe
