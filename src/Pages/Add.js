@@ -303,7 +303,7 @@ const Add = () => {
             )}
             {!token && (
                 <>
-                    <h1 className="lg:text-3xl font-bold text-center m-5 p-5">
+                    <h1 className="lg:text-3xl text-center m-5 p-5">
                         Login to Upload
                     </h1>
                 </>
