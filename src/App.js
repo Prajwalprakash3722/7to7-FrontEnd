@@ -13,6 +13,32 @@ import AddModel from './Pages/AddModel';
 import Add from './Pages/Add';
 import NavBar from './components/NavBar';
 import { SelectedContext } from './etc/context';
+
+import {
+    Chart as ChartJS,
+    LinearScale,
+    ArcElement,
+    CategoryScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Legend,
+    Title,
+    Tooltip,
+} from 'chart.js';
+
+ChartJS.register(
+    LinearScale,
+    ArcElement,
+    CategoryScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Legend,
+    Title,
+    Tooltip
+);
+
 function App() {
     const [token, setToken] = useState('');
     const selectedState = useState(null);

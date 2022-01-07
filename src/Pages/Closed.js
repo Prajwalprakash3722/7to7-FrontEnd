@@ -23,16 +23,16 @@ import {
 } from 'chart.js';
 import { Doughnut as PieChart, Line as LineChart } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
-ChartJS.register(
-    ArcElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
+// ChartJS.register(
+    
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     Title,
+//     Tooltip,
+//     Legend
+// );
 
 function Closed() {
     const [value, setValue] = React.useState(new Date());

@@ -251,20 +251,25 @@ function AddModel() {
                             }}
                             target="uploadtarget"
                             encType="multipart/form-data"
+                            style={{ textAlign: 'center' }}
                         >
-                            <div className="flex flex-col">
-                                <label className="custom">
-                                    Add File
-                                    <input type="file" name="misc"></input>
-                                </label>
-                                <button
-                                    className="m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                    type="submit"
-                                >
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
+                            <label
+                                className="custom"
+                                style={{ margin: 'auto' }}
+                            >
+                                Add File
+                                <input type="file" name="misc"></input>
+                            </label>
+                            <button
+                                className="m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="submit"
+                            >
+                                Submit
+                            </button>
+                        </form>{' '}
+                        {new Array(3).fill(undefined).map((e) => (
+                            <br />
+                        ))}
                         {/* this iframe will make the form request, itll be hidden tho */}
                         <iframe
                             title="uploadtarget"
