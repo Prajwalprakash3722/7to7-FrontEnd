@@ -265,7 +265,7 @@ function AddModel() {
                     Upload artifacts (.csv and .rds)
                 </h1>
                 <div className="flex flex-col items-center justify-center">
-                    <div className="w-full max-w-xs">
+                    <div className=" w-full max-w-xs">
                         <form
                             method="POST"
                             action={`${api_link}/api/files?token=${urlEncodedToken}`}
@@ -279,9 +279,12 @@ function AddModel() {
                             }}
                             target="uploadtarget"
                             encType="multipart/form-data"
-                            style={{textAlign:'center'}}
+                            style={{ textAlign: 'center' }}
                         >
-                            <label className="custom" style={{margin:'auto'}}>
+                            <label
+                                className="custom"
+                                style={{ margin: 'auto' }}
+                            >
                                 Add File
                                 <input type="file" name="misc"></input>
                             </label>
@@ -291,7 +294,10 @@ function AddModel() {
                             >
                                 Submit
                             </button>
-                        </form> {new Array(3).fill(undefined).map(e=><br />)}
+                        </form>{' '}
+                        {new Array(3).fill(undefined).map((e) => (
+                            <br />
+                        ))}
                         {/* this iframe will make the form request, itll be hidden tho */}
                         <iframe
                             title="uploadtarget"

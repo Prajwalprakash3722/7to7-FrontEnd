@@ -136,7 +136,7 @@ function Login() {
                                         className="border-2 border-gray-100 focus:outline-none bg-blue-400 text-white font-bold tracking-wider block w-full p-2 rounded-lg"
                                         variant="contained"
                                         color="primary"
-                                    >
+                                    > 
                                         {loading ? (
                                             <svg
                                                 className="animate-spin h-5 w-5 mr-3 ..."
