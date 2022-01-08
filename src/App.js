@@ -10,7 +10,7 @@ import TablesPage from './Pages/TablesPage';
 import PredTablesPage from './Pages/PredTablesPage';
 import ProfilePage from './Pages/Profile';
 import AddModel from './Pages/AddModel';
-import Add from './Pages/Add';
+import SelectLeads from './Pages/SelectLeads';
 import NavBar from './components/NavBar';
 import { SelectedContext } from './etc/context';
 
@@ -51,7 +51,7 @@ function App() {
                 <Router>
                     <NavBar />
                     <Routes>
-                        <Route path="/" element={<Add />} />
+                        <Route path="/" element={<SelectLeads />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/allleads" element={<AllLeadsPage />} />

@@ -17,6 +17,9 @@ export const masterListColumns = [
             {
                 Header: 'Prediction file',
                 accessor: 'pred_loc',
+            },
+            {
+                Header:'Confusion Matrix file',accessor:'conf_loc'
             }
         ],
     },

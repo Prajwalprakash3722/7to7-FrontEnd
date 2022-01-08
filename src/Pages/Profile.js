@@ -21,10 +21,7 @@ function Profile() {
         }
     }, [token]);
 
-    const date1 = new Date(user.date);
-    const date2 = new Date();
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = user?.date?Math.ceil(Math.abs(new Date(user.date) - new Date()) / (1000 * 60 * 60 * 24)):null;
     return (
         <>
             <div className="px-24 h-screen flex flex-col justify-center items-center space-y-5">
@@ -32,7 +29,7 @@ function Profile() {
                     <div className="flex">
                         <img
                             src={`https://ui-avatars.com/api/?name=${
-                                user.name ? user.name : "7to7"
+                                user?.name ? user.name : "7to7"
                             }`}
                             alt="logo"
                             className="hidden lg:block rounded-tl-xl w-60 object-cover"
@@ -40,10 +37,10 @@ function Profile() {
                         />
                         <div className="p-8">
                             <h3 className="font-bold text-2xl mb-5">
-                                {user.name}
+                                {user?.name}
                             </h3>
                             <p className="font-mono leading-relaxed">
-                                {user.email}
+                                {user?.email}
                             </p>
                             <button
                                 className="mt-5 rounded-lg px-4 py-2 bg-blue-500 text-blue-50 shadow hover:shadow-xl duration-300"

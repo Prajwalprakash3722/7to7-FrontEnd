@@ -23,29 +23,16 @@ const Add = () => {
         backgroundColor: 'white',
     };
 
-    const [file, setFile] = useState(null);
-    const [fileName, setFileName] = useState('');
-    const [fileType, setFileType] = useState('');
-    const [fileSize, setFileSize] = useState('');
-    const [fileData, setFileData] = useState('');
+    // const [file, setFile] = useState(null);
+    // const [fileName, setFileName] = useState('');
+    // const [fileType, setFileType] = useState('');
+    // const [fileSize, setFileSize] = useState('');
+    // const [fileData, setFileData] = useState('');
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
 
     // global state to use
     const [globalSelected, setGlobalSelected] = useContext(SelectedContext);
-
-    const uploadFile = (files) => {
-        setFile(files[0]);
-        setFileName(files[0].name);
-        setFileType(files[0].type);
-        setFileSize(files[0].size);
-        setFileData(files[0].data);
-        if (fileType === 'text/csv') {
-            console.log('Good File Type');
-        } else {
-            console.error('Bad File Type');
-        }
-    };
 
     useEffect(() => {
         axios
@@ -63,7 +50,7 @@ const Add = () => {
     const selectModel = (selectedOption) => {
         setSelectedOption(selectedOption);
         console.log('selectedoption', selectedOption);
-        setGlobalSelected(selectedOption.id);
+        setGlobalSelected(selectedOption?.id ?? null);
         // localStorage.setItem("selected", selectedOption.id);
     };
     return (
@@ -72,7 +59,7 @@ const Add = () => {
                 <>
                     {success && (
                         <>
-                            <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 m-5">
+                            <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 " style={{position:'fixed',bottom:'2rem',right:'2rem'}}>
                                 <div className="flex items-center justify-center w-12 bg-emerald-500">
                                     <svg
                                         className="w-6 h-6 text-white fill-current"
@@ -83,7 +70,7 @@ const Add = () => {
                                     </svg>
                                 </div>
 
-                                <div className="px-4 py-2 -mx-3">
+                                <div className="px-4 py-2 -mx-3" >
                                     <div className="mx-3">
                                         <span className="font-semibold text-emerald-500 dark:text-emerald-400">
                                             Success
@@ -102,65 +89,15 @@ const Add = () => {
                     </h1>
                     <div className="lg:flex flex-col justify-center items-center">
                         <div className="flex flex-col items-center">
-                            {/* <label className="custom">
-                                <div style={styles}>
-                                    <form
-                                        method="POST"
-                                        // action={`${api_link}/api/files?token=${urlEncodedToken}`}
-                                        onSubmit={(e) => {
-                                            Promise.allSettled([
-                                                // mutateDataFilesList(),
-                                                // mutateModelList(),
-                                            ])
-                                                .then((e) =>
-                                                    alert('done uploading')
-                                                )
-                                                .catch((e) =>
-                                                    console.log('What happened')
-                                                );
-                                        }}
-                                        target="uploadtarget"
-                                        encType="multipart/form-data"
-                                    >
-                                        <input type="file" name="misc"></input>
-                                    </form>
-                                    <FileDrop
-                                        onDrop={(files, event) =>
-                                            console.log(files, event)
-                                        }
-                                    >
-                                        Drop or click to upload CSV file here
-                                    </FileDrop>
-                                </div>
-                            </label>
-                            <button className="m-2 flex items-center justify-center w-full px-2 py-1 text-white transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none sm:w-auto sm:mx-1 hover:bg-blue-500 focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="w-5 h-5 mx-1"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                    />
-                                </svg>
-                                <span className="mx-1">Upload</span>
-                            </button> */}
-
                             <div className="p-5 flex flex-col items-center ">
                                 <div className="dropdown inline-block relative">
-                                    <button
+                                    {/* <button
                                         className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center"
                                         style={{ transition: 'width 2s' }}
                                     >
                                         <span className="mr-1 ">
                                             {selectedOption?.model_desc ??
                                                 'Select Model for Base Prediction'}
-                                            {/* {options.length > 0 ? options[0].model_desc : "Select Model"} */}
                                         </span>
                                         <svg
                                             className="fill-current h-4 w-4"
@@ -169,8 +106,8 @@ const Add = () => {
                                         >
                                             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
                                         </svg>
-                                    </button>
-                                    <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
+                                    </button> */}
+                                    {/* <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
                                         {options.map((option, i) => (
                                             <li key={option + i}>
                                                 <p
@@ -188,8 +125,64 @@ const Add = () => {
                                                 </p>
                                             </li>
                                         ))}
-                                    </ul>
-                                    <table className="mt-44">
+                                    </ul> */}
+                                    <label
+                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                        htmlFor="modelfile"
+                                    >
+                                        Pick a model:
+                                    </label>
+                                    <select
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        id="modelfile"
+                                        name="modelfile"
+                                        required
+                                        onChange={(e) => {
+                                            if (e.target.value) {
+                                                console.log(
+                                                    'nonnull',
+                                                    JSON.stringify(
+                                                        options[e.target.value]
+                                                    )
+                                                );
+                                                selectModel(options[e.target.value]);
+                                                setSuccess(true);
+                                                setTimeout(() => {
+                                                    setSuccess(false);
+                                                }, 2000);
+                                            } else selectModel(null);
+                                        }}
+                                    >
+                                        {options ? (
+                                            <>
+                                                <option
+                                                    disabled
+                                                    selected
+                                                    value={null}
+                                                >
+                                                    Select a model
+                                                </option>
+                                                {options.map((e, i) => (
+                                                    <option
+                                                        value={i}
+                                                        key={e.model_desc + i}
+                                                    >
+                                                        {`${e.model_desc}`}
+                                                    </option>
+                                                ))}
+                                            </>
+                                        ) : (
+                                            <option
+                                                disabled
+                                                selected
+                                                value={null}
+                                            >
+                                                Loading...
+                                            </option>
+                                        )}
+                                    </select>
+                                    {selectedOption?
+                                    (<table className="mt-8">
                                         <tbody>
                                             <tr>
                                                 <td className="text-gray-700 bg-blue-100 m-5 p-5">
@@ -212,7 +205,7 @@ const Add = () => {
                                                     Model location
                                                 </td>
                                                 <td className="text-gray-700 bg-slate-200 m-5 p-5">
-                                                    {selectedOption.model_desc ?? (
+                                                    {selectedOption.model_loc ?? (
                                                         <span
                                                             style={{
                                                                 color: 'red',
@@ -257,6 +250,22 @@ const Add = () => {
                                             </tr>
                                             <tr>
                                                 <td className="text-gray-700 bg-blue-100 m-5 p-5">
+                                                    Confusion data location
+                                                </td>
+                                                <td className="text-gray-700 bg-slate-200 m-5 p-5">
+                                                    {selectedOption.conf_loc ?? (
+                                                        <span
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            Not selected
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="text-gray-700 bg-blue-100 m-5 p-5">
                                                     Created at:
                                                 </td>
                                                 <td className="text-gray-700 bg-slate-200 m-5 p-5">
@@ -272,30 +281,9 @@ const Add = () => {
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table>):(<div className='mt-8'>Click on a model to get started</div>)}
                                 </div>
-                                {/* <div>
-                                    <button
-                                        className="m-2 flex items-center justify-center w-full px-2 py-1 text-white transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none sm:w-auto sm:mx-1 hover:bg-blue-500 focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                                        onClick={selectModel}
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="w-5 h-5 mx-1"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                            />
-                                        </svg>
-                                        <span className="mx-1">Submit</span>
-                                    </button>
-                                </div> */}
+                                
                             </div>
                         </div>
                     </div>
@@ -304,7 +292,7 @@ const Add = () => {
             {!token && (
                 <>
                     <h1 className="lg:text-3xl text-center m-5 p-5">
-                        Login to Upload
+                        Login to get started!
                     </h1>
                 </>
             )}
