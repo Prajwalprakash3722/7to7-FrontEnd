@@ -6,33 +6,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useEffect } from 'react';
 import DatePicker from 'react-date-picker';
-// import LineChart from '../components/Graphs/LineGraph';
 import { SelectedContext } from '../etc/context';
 import axios from 'axios';
 import api_link from '../etc/api';
-import {
-    Chart as ChartJS,
-    ArcElement,
-    Tooltip,
-    Legend,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-} from 'chart.js';
 import { Doughnut as PieChart, Line as LineChart } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
-// ChartJS.register(
-    
-//     CategoryScale,
-//     LinearScale,
-//     PointElement,
-//     LineElement,
-//     Title,
-//     Tooltip,
-//     Legend
-// );
 
 function Closed() {
     const [value, setValue] = React.useState(new Date());
@@ -77,7 +55,7 @@ function Closed() {
     }, [id, token]);
 
     // trimmed part of data
-    const trimmedData = useMemo(() => {
+    const { trimmedData, affirmativeAllDataLen, allOrderRate } = useMemo(() => {
         const data = alldata.filter((e) => {
             // check if month and year matches - split by separator
             const dateString = e['Enquiry Date'];
@@ -88,8 +66,12 @@ function Closed() {
             // console.log('Try',year,month,datesplit,pred);
             return pred;
         });
+        const affirmativeAllDataLen = alldata.filter((e) => {
+            return e['Status'] === '1';
+        }).length;
+        const allOrderRate = (affirmativeAllDataLen * 100) / alldata.length;
         // console.log('trimmed data', data);
-        return data;
+        return { trimmedData: data, affirmativeAllDataLen, allOrderRate };
     }, [year, month, alldata]);
     // chart for all the probabilities
     const {
@@ -165,6 +147,16 @@ function Closed() {
             const trimArray = [...total];
             const labels = trimArray.map((e) => e[0]);
             const counts = trimArray.map((e) => e[1]);
+
+            //auxiliary length collections
+            const trimmedTotalElements = trimmedData.length;
+            const trimmedTotalAffirmative = trimmedData.filter(
+                (e) => e['Status'] === '1'
+            ).length;
+            const trimmedOrderRate =
+                trimmedTotalAffirmative*100 / trimmedTotalElements;
+            console.log('everything', allOrderRate, trimmedOrderRate);
+
             const chartjsdata = {
                 labels,
                 datasets: [
@@ -173,6 +165,7 @@ function Closed() {
                         label: 'Grouped',
                         stack: 'stack1',
                         data: counts,
+                        yAxisID: 'y',
                         backgroundColor: 'rgba(255, 99, 132,.1)',
                         borderColor: 'rgb(128, 50, 64)',
                         borderWidth: 1,
@@ -181,6 +174,7 @@ function Closed() {
                     {
                         type: 'line',
                         label: 'CF',
+                        yAxisID: 'y',
                         data: counts.map((e, i, x) => {
                             let sum = e;
                             for (let it = 0; it < i; it++) {
@@ -192,36 +186,43 @@ function Closed() {
                         hoverOffset: 4,
                     },
                     // this would be whole avg
-                    // {
-                    //     type: 'line',
-                    //     label: 'CF',
-                    //     data: counts.map((e, i, x) => {
-                    //         let sum = 0;
-                    //         for (let it = 0; it < i; it++) {
-                    //             sum += x[it];
-                    //         }
-                    //         return sum;
-                    //     }),
-                    //     backgroundColor: 'rgb( 100,100,0)',
-                    //     hoverOffset: 4,
-                    // },
+                    {
+                        type: 'line',
+                        label: 'Order Rate - Month',
+                        yAxisID: 'y1',
+                        data: labels.map((e) => trimmedOrderRate),
+                        backgroundColor: 'rgb( 100,100,0)',
+                        hoverOffset: 4,
+                    },
+                    {
+                        type: 'line',
+                        label: 'Order Rate - All Time',
+                        yAxisID: 'y1',
+                        data: labels.map((e) => allOrderRate),
+                        backgroundColor: 'rgb( 100,100,0)',
+                        hoverOffset: 4,
+                    },
                 ],
             };
 
             // if we have selected a probability section we need to show that as well
             if (selectedProbabilitySection !== null) {
                 const total = new Map();
-                trimmedData
-                    .filter(
-                        (e) =>
-                            e['Predicted Prob.1'] === selectedProbabilitySection
-                    )
-                    .forEach((element) => {
-                        total.set(
-                            element[selectedCategory],
-                            (total.get(element[selectedCategory]) ?? 0) + 1
-                        );
-                    });
+                const segmentFiltered = trimmedData.filter(
+                    (e) => e['Predicted Prob.1'] === selectedProbabilitySection
+                );
+                // calculate per label distribution of selected category
+                segmentFiltered.forEach((element) => {
+                    total.set(
+                        element[selectedCategory],
+                        (total.get(element[selectedCategory]) ?? 0) + 1
+                    );
+                });
+
+                const segmentFilteredOrderedLength = segmentFiltered.filter(e=>e['Status']==='1').length
+                const segmentFilteredLength = segmentFiltered.length
+                const segmentAvg = segmentFilteredOrderedLength*100/segmentFilteredLength;
+                console.log('filtered stats',segmentFilteredLength,segmentFilteredOrderedLength,trimmedTotalElements,segmentAvg)
                 // use existing labels to construct a count set in the same order - use 0 if not in the map
                 const probabilityFilteredCounts = labels.map((label) => {
                     return total.get(label) ?? 0;
@@ -229,9 +230,20 @@ function Closed() {
                 // add this extra map
                 chartjsdata.datasets.push({
                     type: 'bar',
+                    // yAxisID: 'y',
                     label: `Selected Probability (${selectedProbabilitySection})`,
                     data: probabilityFilteredCounts,
                     backgroundColor: 'rgb( 99,128, 132)',
+                    // borderColor:,
+                    stack: 'stack1',
+
+                    hoverOffset: 4,
+                },{
+                    type: 'line',
+                    yAxisID: 'y',
+                    label: `Month Order Rate - Selected Probability Segment`,
+                    data: probabilityFilteredCounts.map(e=>segmentAvg),
+                    backgroundColor: 'rgb( 128, 132,99)',
                     // borderColor:,
                     stack: 'stack1',
 
@@ -326,9 +338,28 @@ function Closed() {
                             ))}
                         </select>
                     </p> */}
-                    <LineChart
+                    {/* <LineChart
                         data={groupedchartjsoptions}
                         options={{ scales: { y: { stacked: false } } }}
+                    /> */}
+                    <LineChart
+                        data={groupedchartjsoptions}
+                        options={{
+                            scales: {
+                                y: {
+                                    position: 'left',
+                                    type: 'linear',
+                                    stacked: false,
+                                },
+                                y1: {
+                                    id: 'perc',
+                                    position: 'right',
+                                    type: 'linear',
+                                    min:0,max:100,
+                                    grid: { color: '#ff000022' },
+                                },
+                            },
+                        }}
                     />
                 </div>
             </div>
