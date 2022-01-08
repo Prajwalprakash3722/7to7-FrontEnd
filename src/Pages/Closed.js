@@ -174,7 +174,7 @@ function Closed() {
                     {
                         type: 'line',
                         label: 'CF',
-                        yAxisID: 'y',
+                        yAxisID: 'y2',
                         data: counts.map((e, i, x) => {
                             let sum = e;
                             for (let it = 0; it < i; it++) {
@@ -208,6 +208,7 @@ function Closed() {
             // if we have selected a probability section we need to show that as well
             if (selectedProbabilitySection !== null) {
                 const total = new Map();
+                const totalOrderedCounts = new Map();
                 const segmentFiltered = trimmedData.filter(
                     (e) => e['Predicted Prob.1'] === selectedProbabilitySection
                 );
@@ -217,6 +218,13 @@ function Closed() {
                         element[selectedCategory],
                         (total.get(element[selectedCategory]) ?? 0) + 1
                     );
+                    // order percents
+                    if(element['Status']==='1'){
+                        totalOrderedCounts.set(
+                            element[selectedCategory],
+                            (totalOrderedCounts.get(element[selectedCategory]) ?? 0) + 1
+                        );
+                    }
                 });
 
                 const segmentFilteredOrderedLength = segmentFiltered.filter(e=>e['Status']==='1').length
@@ -227,6 +235,12 @@ function Closed() {
                 const probabilityFilteredCounts = labels.map((label) => {
                     return total.get(label) ?? 0;
                 });
+
+                const probabilityFilteredOrderRates = labels.map((label,i)=>{
+                    // dont do division if 0, straightaway return 0
+                    return probabilityFilteredCounts[i]!==0? ((totalOrderedCounts.get(label)??0)*100/probabilityFilteredCounts[i]):0
+                })
+                console.log('manager',probabilityFilteredCounts.map((e,i)=>[e,probabilityFilteredOrderRates[i]]))
                 // add this extra map
                 chartjsdata.datasets.push({
                     type: 'bar',
@@ -248,7 +262,17 @@ function Closed() {
                     stack: 'stack1',
 
                     hoverOffset: 4,
-                });
+                },{
+                    type: 'line',
+                    yAxisID: 'y',
+                    label: `Month Order Rate - Selected Segment Groupwise`,
+                    data: probabilityFilteredOrderRates,
+                    backgroundColor: 'rgb( 128, 132,99)',
+                    // borderColor:,
+                    stack: 'stack1',
+
+                    hoverOffset: 4,
+                },);
             }
             return { labels, counts, chartjsdata };
         }, [trimmedData, selectedProbabilitySection, selectedCategory]);
