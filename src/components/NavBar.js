@@ -108,6 +108,19 @@ export default function NavBar() {
                                     >
                                         Closed Leads
                                     </Link>
+                                    <Link
+                                        to="/openleads"
+                                        onClick={() =>
+                                            setCurrentPage('/openleads')
+                                        }
+                                        className={navButtonClassDecider(
+                                            currentPage,
+                                            '/openleads',
+                                            'py-4 px-2'
+                                        )}
+                                    >
+                                        Open Leads
+                                    </Link>
 
                                     {/* <Link
                                         to="/openleads"
@@ -136,7 +149,7 @@ export default function NavBar() {
                                     >
                                         Models
                                     </Link> */}
-                                    <Link
+                                    {/* <Link
                                         to="/tables"
                                         onClick={() =>
                                             setCurrentPage('/tables')
@@ -148,7 +161,7 @@ export default function NavBar() {
                                         )}
                                     >
                                         Data Tables
-                                    </Link>
+                                    </Link> */}
                                     <Link
                                         to="/predtables"
                                         onClick={() =>

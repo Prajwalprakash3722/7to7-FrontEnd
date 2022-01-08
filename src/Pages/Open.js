@@ -66,8 +66,8 @@ function Closed() {
             const datemonth = parseInt(datesplit[1]);
             const pred = year === dateyear && month === datemonth;
             // console.log('Try',year,month,datesplit,pred);
-            // being warm - not ordered or dropped
-            return pred;
+            const openPred = e['Status']!=='0' && e['Status']!=='1' ;
+            return pred && openPred;
         });
         const affirmativeAllDataLen = alldata.filter((e) => {
             return e['Status'] === '1';
@@ -96,7 +96,6 @@ function Closed() {
         const trimArray = [...total];
         // sort these based on the probability values
         trimArray.sort((a, b) => {
-            // false = 0, true=1
             return a[+isSortBySize] - b[+isSortBySize];
         });
         // unzip the above array into labels and counts
@@ -133,7 +132,7 @@ function Closed() {
             ],
         };
         return { labels, counts, chartjsdata: chartjsdata, displayLabels };
-    }, [trimmedData,isSortBySize]);
+    }, [trimmedData]);
 
     // const groupByCol = "Enquiry Status Reasoning";
     // per group counts
@@ -151,14 +150,6 @@ function Closed() {
             const trimArray = [...total];
             const labels = trimArray.map((e) => e[0]);
             const counts = trimArray.map((e) => e[1]);
-
-            //auxiliary length collections
-            const trimmedTotalElements = trimmedData.length;
-            const trimmedTotalAffirmative = trimmedData.filter(
-                (e) => e['Status'] === '1'
-            ).length;
-            const trimmedOrderRate =
-                trimmedTotalAffirmative*100 / trimmedTotalElements;
 
             const chartjsdata = {
                 labels,
@@ -188,30 +179,13 @@ function Closed() {
                         backgroundColor: 'rgb( 99,255, 132)',
                         hoverOffset: 4,
                     },
-                    // this would be whole avg
-                    {
-                        type: 'line',
-                        label: 'Order Rate - Month',
-                        yAxisID: 'y1',
-                        data: labels.map((e) => trimmedOrderRate),
-                        backgroundColor: 'rgb( 100,100,0)',
-                        hoverOffset: 4,
-                    },
-                    {
-                        type: 'line',
-                        label: 'Order Rate - All Time',
-                        yAxisID: 'y1',
-                        data: labels.map((e) => allOrderRate),
-                        backgroundColor: 'rgb( 100,100,0)',
-                        hoverOffset: 4,
-                    },
+                   
                 ],
             };
 
             // if we have selected a probability section we need to show that as well
             if (selectedProbabilitySection !== null) {
                 const total = new Map();
-                const totalOrderedCounts = new Map();
                 const segmentFiltered = trimmedData.filter(
                     (e) => e['Predicted Prob.1'] === selectedProbabilitySection
                 );
@@ -222,28 +196,16 @@ function Closed() {
                         (total.get(element[selectedCategory]) ?? 0) + 1
                     );
                     // order percents
-                    if(element['Status']==='1'){
-                        totalOrderedCounts.set(
-                            element[selectedCategory],
-                            (totalOrderedCounts.get(element[selectedCategory]) ?? 0) + 1
-                        );
-                    }
+                    
                 });
 
-                const segmentFilteredOrderedLength = segmentFiltered.filter(e=>e['Status']==='1').length
-                const segmentFilteredLength = segmentFiltered.length
-                const segmentAvg = segmentFilteredOrderedLength*100/segmentFilteredLength;
-                console.log('filtered stats',segmentFilteredLength,segmentFilteredOrderedLength,trimmedTotalElements,segmentAvg)
+                
                 // use existing labels to construct a count set in the same order - use 0 if not in the map
                 const probabilityFilteredCounts = labels.map((label) => {
                     return total.get(label) ?? 0;
                 });
 
-                const probabilityFilteredOrderRates = labels.map((label,i)=>{
-                    // dont do division if 0, straightaway return 0
-                    return probabilityFilteredCounts[i]!==0? ((totalOrderedCounts.get(label)??0)*100/probabilityFilteredCounts[i]):0
-                })
-                console.log('manager',probabilityFilteredCounts.map((e,i)=>[e,probabilityFilteredOrderRates[i]]))
+                
                 // add this extra map
                 chartjsdata.datasets.push({
                     type: 'bar',
@@ -251,26 +213,6 @@ function Closed() {
                     label: `Selected Probability (${selectedProbabilitySection})`,
                     data: probabilityFilteredCounts,
                     backgroundColor: 'rgb( 99,128, 132)',
-                    // borderColor:,
-                    stack: 'stack1',
-
-                    hoverOffset: 4,
-                },{
-                    type: 'line',
-                    yAxisID: 'y',
-                    label: `Month Order Rate - Selected Probability Segment`,
-                    data: probabilityFilteredCounts.map(e=>segmentAvg),
-                    backgroundColor: 'rgb( 128, 132,99)',
-                    // borderColor:,
-                    stack: 'stack1',
-
-                    hoverOffset: 4,
-                },{
-                    type: 'line',
-                    yAxisID: 'y',
-                    label: `Month Order Rate - Selected Segment Groupwise`,
-                    data: probabilityFilteredOrderRates,
-                    backgroundColor: 'rgb( 128, 132,99)',
                     // borderColor:,
                     stack: 'stack1',
 
@@ -294,7 +236,8 @@ function Closed() {
             <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2">
                 <div className="bg-gray-50 p-5 m-2">
                 <div className="m-5" />
-                    <FormControl fullWidth >
+                    
+                <FormControl fullWidth >
                             <InputLabel id="demo-simple-select-label">
                                 Sort By
                             </InputLabel>
@@ -317,8 +260,7 @@ function Closed() {
                                 
                             </Select>
                         </FormControl>
-
-                    <PieChart 
+                    <PieChart
                         data={probfreqchartjsdata}
                         options={{
                             onClick: (_evt, elements) => {
@@ -340,7 +282,8 @@ function Closed() {
                             },
                         }}
                     />
-                    <p>
+
+<p>
                         <span className="text-gray-500">
                             {'Total Enquiries: ' + (trimmedData.length ?? 0)}
                         </span>

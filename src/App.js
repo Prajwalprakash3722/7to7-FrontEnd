@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './Pages/Login';
 import RegisterPage from './Pages/Register';
 import ClosedLeadsPage from './Pages/Closed';
+import OpenLeadsPage from './Pages/Open';
 import AllLeadsPage from './Pages/AllLeads';
 import TablesPage from './Pages/TablesPage';
 import PredTablesPage from './Pages/PredTablesPage';
@@ -65,6 +66,10 @@ function App() {
                         <Route
                             path="/closedleads"
                             element={<ClosedLeadsPage />}
+                        />
+                        <Route
+                            path="/openleads"
+                            element={<OpenLeadsPage />}
                         />
                         <Route path="/profile" element={<ProfilePage />} />
                     </Routes>
