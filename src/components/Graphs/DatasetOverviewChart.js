@@ -157,7 +157,7 @@ export default function Overview({ year }) {
                     // (#ordered & #(prob of 1>.5))/#Ordered
                     data: chartCounts.map((month) => {
                         const total = month.get('0') + month.get('1');
-                        const prob = month.get('1') / total;
+                        const prob = month.get('1') / total ?? 1;
                         return prob * 100;
                     }),
                 },
@@ -165,7 +165,11 @@ export default function Overview({ year }) {
                     type: 'line',
                     label: 'TNR',
                     backgroundColor: randomColor('TNR'),
-                    data: labels.map(() => Math.random() * 100),
+                    data: chartCounts.map((month) => {
+                        const total = month.get('0') + month.get('1');
+                        const prob = month.get('0') / total;
+                        return prob * 100;
+                    }),
                 },
             ],
         };
