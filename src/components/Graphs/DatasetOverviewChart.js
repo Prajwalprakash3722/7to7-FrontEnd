@@ -127,6 +127,7 @@ export default function Overview({ year }) {
                 {
                     type: 'bar',
                     label: 'Dropped',
+                    yAxisID: 'y',
                     stack: 'stack1',
                     backgroundColor: 'rgba(255, 99, 132, 0.5)',
                     data: chartCounts.map((month) => month.get('1')),
@@ -134,6 +135,7 @@ export default function Overview({ year }) {
                 {
                     type: 'bar',
                     label: 'Ordered',
+                    yAxisID: 'y',
                     stack: 'stack1',
                     backgroundColor: 'rgba(0,250,154, 0.5)',
                     data: chartCounts.map((month) => month.get('0')),
@@ -141,34 +143,44 @@ export default function Overview({ year }) {
                 {
                     type: 'line',
                     label: 'Dropped',
+                    yAxisID: 'y',
                     backgroundColor: 'rgba(0,250,154)',
                     data: chartCounts.map((month) => month.get('1')),
                 },
-                {
-                    type: 'line',
-                    label: 'Ordered',
-                    backgroundColor: 'rgba(255, 99, 132)',
-                    data: chartCounts.map((month) => month.get('0')),
-                },
+                // {
+                //     type: 'line',
+                //     label: 'Ordered',
+                //     yAxisID: 'y',
+                //     backgroundColor: 'rgba(255, 99, 132)',
+                //     data: chartCounts.map((month) => month.get('0')),
+                // },
                 {
                     type: 'line',
                     label: 'TPR',
+                    yAxisID: 'y1',
                     backgroundColor: randomColor('TPR'),
                     // (#ordered & #(prob of 1>.5))/#Ordered
                     data: chartCounts.map((month) => {
-                        const total = month.get('0') + month.get('1');
-                        const prob = month.get('1') / total ?? 1;
-                        return prob * 100;
+                        const total =
+                            (month.get('0') ?? 0) + (month.get('1') ?? 0);
+                        if (total) {
+                            const prob = (month.get('1') ?? 0) / total;
+                            return prob * 100;
+                        } else return 0;
                     }),
                 },
                 {
                     type: 'line',
                     label: 'TNR',
+                    yAxisID: 'y1',
                     backgroundColor: randomColor('TNR'),
                     data: chartCounts.map((month) => {
-                        const total = month.get('0') + month.get('1');
-                        const prob = month.get('0') / total;
-                        return prob * 100;
+                        const total =
+                            (month.get('0') ?? 0) + (month.get('1') ?? 0);
+                        if (total) {
+                            const prob = (month.get('0') ?? 0) / total;
+                            return prob * 100;
+                        } else return 0;
                     }),
                 },
             ],
@@ -191,10 +203,17 @@ export default function Overview({ year }) {
                     position: 'top',
                 },
                 scales: {
-                    yAxis: {
+                    y: {
                         ticks: {
                             beginAtZero: true,
                         },
+                    },
+                    y1: {
+                        position: 'right',
+                        type: 'linear',
+                        min: 0,
+                        max: 100,
+                        grid: { color: '#ff000022' },
                     },
                 },
                 responsive: true,
