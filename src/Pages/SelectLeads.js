@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, useMemo } from 'react';
-import { FileDrop } from 'react-file-drop';
 import './Add.css';
 import { SelectedContext } from '../etc/context';
 import axios from 'axios';
