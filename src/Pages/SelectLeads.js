@@ -266,7 +266,7 @@ const Add = () => {
                                                                     color: 'red',
                                                                 }}
                                                             >
-                                                                Not selected
+                                                                Empty
                                                             </span>
                                                         )}
                                                     </td>
@@ -298,14 +298,18 @@ const Add = () => {
 
                                 {confusionData && (
                                     <div className="p-5 flex flex-col items-center mt-3">
+                                        <h1 className="text-neutral-500 text-2xl m-5">
+                                            Confusion Matrix for{' '}
+                                            {selectedOption.model_desc}
+                                        </h1>
                                         <table class="min-w-full bg-white">
                                             <thead className="bg-gray-600 text-white">
                                                 <tr>
                                                     <th></th>
-                                                    <th className="text-left p-5 uppercase font-semibold text-sm">
+                                                    <th className="text-center p-5 uppercase font-semibold text-sm">
                                                         Positive
                                                     </th>
-                                                    <th className="text-right p-5 uppercase font-semibold text-sm">
+                                                    <th className="text-center p-5 uppercase font-semibold text-sm">
                                                         Negative
                                                     </th>
                                                 </tr>
@@ -315,7 +319,7 @@ const Add = () => {
                                                     <th className="text-center p-5 bg-gray-600 text-white uppercase font-semibold text-sm">
                                                         Positive
                                                     </th>
-                                                    <td className="w-1/2 text-left py-3 px-4">
+                                                    <td className="w-1/2 text-center py-3 px-4">
                                                         {confusionData[0][0]} -{' '}
                                                         {(
                                                             (confusionData[0][0] *
@@ -324,7 +328,7 @@ const Add = () => {
                                                         ).toFixed(2)}{' '}
                                                         %
                                                     </td>
-                                                    <td className="w-1/2 text-left py-3 px-4">
+                                                    <td className="w-1/2 text-center py-3 px-4">
                                                         {confusionData[0][1]} -{' '}
                                                         {(
                                                             (confusionData[0][1] *
@@ -338,7 +342,7 @@ const Add = () => {
                                                     <th className="text-center p-5 bg-gray-600 text-white uppercase font-semibold text-sm">
                                                         Negative
                                                     </th>
-                                                    <td className="w-1/2 text-left py-3 px-4">
+                                                    <td className="w-1/2 text-center py-3 px-4">
                                                         {confusionData[1][0]} -{' '}
                                                         {(
                                                             (confusionData[1][0] *
@@ -347,7 +351,7 @@ const Add = () => {
                                                         ).toFixed(2)}{' '}
                                                         %
                                                     </td>
-                                                    <td className="w-1/2 text-left py-3 px-4">
+                                                    <td className="w-1/2 text-center py-3 px-4">
                                                         {confusionData[1][1]} -{' '}
                                                         {(
                                                             (confusionData[1][1] *
