@@ -112,18 +112,57 @@ export default function Overview({ year }) {
         // console.log("mydata", chartCounts, headers);
         return {
             labels,
-            datasets: [...headers].map((e) => {
-                const label = e === '0' ? 'Dropped' : e === '1' ? 'Ordered' : e;
-                return {
+            // datasets: [...headers].map((e) => {
+            //     const label = e === '0' ? 'Dropped' : e === '1' ? 'Ordered' : e;
+            //     return {
+            //         type: 'bar',
+            //         // for 0,1 rest are default
+            //         label,
+            //         stack: 'stack1',
+            //         backgroundColor: randomColor(label),
+            //         data: chartCounts.map((month) => month.get(e)), //labels.map(() => Math.random() * 1000),
+            //     };
+            // }),
+            datasets: [
+                {
                     type: 'bar',
-                    // for 0,1 rest are default
-                    label,
+                    label: 'Dropped',
                     stack: 'stack1',
-
-                    backgroundColor: randomColor(label),
-                    data: chartCounts.map((month) => month.get(e)), //labels.map(() => Math.random() * 1000),
-                };
-            }),
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    data: chartCounts.map((month) => month.get('1')),
+                },
+                {
+                    type: 'bar',
+                    label: 'Ordered',
+                    stack: 'stack1',
+                    backgroundColor: 'rgba(0,250,154, 0.5)',
+                    data: chartCounts.map((month) => month.get('0')),
+                },
+                {
+                    type: 'line',
+                    label: 'Dropped',
+                    backgroundColor: 'rgba(0,250,154)',
+                    data: chartCounts.map((month) => month.get('1')),
+                },
+                {
+                    type: 'line',
+                    label: 'Ordered',
+                    backgroundColor: 'rgba(255, 99, 132)',
+                    data: chartCounts.map((month) => month.get('0')),
+                },
+                {
+                    type: 'line',
+                    label: 'TNR',
+                    backgroundColor: randomColor('TNR'),
+                    data: labels.map(() => Math.random() * 1000),
+                },
+                {
+                    type: 'line',
+                    label: 'TPR',
+                    backgroundColor: randomColor('TPR'),
+                    data: labels.map(() => Math.random() * 1000),
+                },
+            ],
         };
     }, [year, alldata]);
 
