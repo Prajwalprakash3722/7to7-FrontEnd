@@ -54,7 +54,7 @@ function Closed() {
         });
     }, [id, token]);
 
-    const [isSortBySize,setIsSortBySize] = useState(false);
+    const [isSortBySize, setIsSortBySize] = useState(false);
 
     // trimmed part of data
     const { trimmedData, affirmativeAllDataLen, allOrderRate } = useMemo(() => {
@@ -133,7 +133,7 @@ function Closed() {
             ],
         };
         return { labels, counts, chartjsdata: chartjsdata, displayLabels };
-    }, [trimmedData,isSortBySize]);
+    }, [trimmedData, isSortBySize]);
 
     // const groupByCol = "Enquiry Status Reasoning";
     // per group counts
@@ -158,7 +158,7 @@ function Closed() {
                 (e) => e['Status'] === '1'
             ).length;
             const trimmedOrderRate =
-                trimmedTotalAffirmative*100 / trimmedTotalElements;
+                (trimmedTotalAffirmative * 100) / trimmedTotalElements;
 
             const chartjsdata = {
                 labels,
@@ -177,7 +177,7 @@ function Closed() {
                     {
                         type: 'line',
                         label: 'CF',
-                        yAxisID: 'y2',
+                        yAxisID: 'y',
                         data: counts.map((e, i, x) => {
                             let sum = e;
                             for (let it = 0; it < i; it++) {
@@ -202,7 +202,7 @@ function Closed() {
                         label: 'Order Rate - All Time',
                         yAxisID: 'y1',
                         data: labels.map((e) => allOrderRate),
-                        backgroundColor: 'rgb( 100,100,0)',
+                        backgroundColor: 'rgb( 128,110,100)',
                         hoverOffset: 4,
                     },
                 ],
@@ -222,60 +222,79 @@ function Closed() {
                         (total.get(element[selectedCategory]) ?? 0) + 1
                     );
                     // order percents
-                    if(element['Status']==='1'){
+                    if (element['Status'] === '1') {
                         totalOrderedCounts.set(
                             element[selectedCategory],
-                            (totalOrderedCounts.get(element[selectedCategory]) ?? 0) + 1
+                            (totalOrderedCounts.get(
+                                element[selectedCategory]
+                            ) ?? 0) + 1
                         );
                     }
                 });
 
-                const segmentFilteredOrderedLength = segmentFiltered.filter(e=>e['Status']==='1').length
-                const segmentFilteredLength = segmentFiltered.length
-                const segmentAvg = segmentFilteredOrderedLength*100/segmentFilteredLength;
-                console.log('filtered stats',segmentFilteredLength,segmentFilteredOrderedLength,trimmedTotalElements,segmentAvg)
+                const segmentFilteredOrderedLength = segmentFiltered.filter(
+                    (e) => e['Status'] === '1'
+                ).length;
+                const segmentFilteredLength = segmentFiltered.length;
+                const segmentAvg =
+                    (segmentFilteredOrderedLength * 100) /
+                    segmentFilteredLength;
+                console.log(
+                    'filtered stats',
+                    segmentFilteredLength,
+                    segmentFilteredOrderedLength,
+                    trimmedTotalElements,
+                    segmentAvg
+                );
                 // use existing labels to construct a count set in the same order - use 0 if not in the map
                 const probabilityFilteredCounts = labels.map((label) => {
                     return total.get(label) ?? 0;
                 });
 
-                const probabilityFilteredOrderRates = labels.map((label,i)=>{
+                const probabilityFilteredOrderRates = labels.map((label, i) => {
                     // dont do division if 0, straightaway return 0
-                    return probabilityFilteredCounts[i]!==0? ((totalOrderedCounts.get(label)??0)*100/probabilityFilteredCounts[i]):0
-                })
-                console.log('manager',probabilityFilteredCounts.map((e,i)=>[e,probabilityFilteredOrderRates[i]]))
+                    return probabilityFilteredCounts[i] !== 0
+                        ? ((totalOrderedCounts.get(label) ?? 0) * 100) /
+                              probabilityFilteredCounts[i]
+                        : 0;
+                });
+                
                 // add this extra map
-                chartjsdata.datasets.push({
-                    type: 'bar',
-                    yAxisID: 'y',
-                    label: `Selected Probability (${selectedProbabilitySection})`,
-                    data: probabilityFilteredCounts,
-                    backgroundColor: 'rgb( 99,128, 132)',
-                    // borderColor:,
-                    stack: 'stack1',
+                chartjsdata.datasets.push(
+                    {
+                        type: 'bar',
+                        yAxisID: 'y',
+                        label: `Selected Probability (${selectedProbabilitySection})`,
+                        data: probabilityFilteredCounts,
+                        backgroundColor: 'rgb( 99,128, 132)',
+                        // borderColor:,
+                        stack: 'stack1',
 
-                    hoverOffset: 4,
-                },{
-                    type: 'line',
-                    yAxisID: 'y',
-                    label: `Month Order Rate - Selected Probability Segment`,
-                    data: probabilityFilteredCounts.map(e=>segmentAvg),
-                    backgroundColor: 'rgb( 128, 132,99)',
-                    // borderColor:,
-                    stack: 'stack1',
+                        hoverOffset: 4,
+                    },
+                    {
+                        type: 'line',
+                        yAxisID: 'y',
+                        label: `Month Order Rate - Selected Probability Segment`,
+                        data: probabilityFilteredCounts.map((e) => segmentAvg),
+                        backgroundColor: 'rgb( 255,255,0)',
+                        // borderColor:,
+                        stack: 'stack1',
 
-                    hoverOffset: 4,
-                },{
-                    type: 'line',
-                    yAxisID: 'y',
-                    label: `Month Order Rate - Selected Segment Groupwise`,
-                    data: probabilityFilteredOrderRates,
-                    backgroundColor: 'rgb( 128, 132,99)',
-                    // borderColor:,
-                    stack: 'stack1',
+                        hoverOffset: 4,
+                    },
+                    {
+                        type: 'line',
+                        yAxisID: 'y',
+                        label: `Month Order Rate - Selected Segment Groupwise`,
+                        data: probabilityFilteredOrderRates,
+                        backgroundColor: 'rgb( 61,255,254)',
+                        // borderColor:,
+                        stack: 'stack1',
 
-                    hoverOffset: 4,
-                },);
+                        hoverOffset: 4,
+                    }
+                );
             }
             return { labels, counts, chartjsdata };
         }, [trimmedData, selectedProbabilitySection, selectedCategory]);
@@ -293,32 +312,26 @@ function Closed() {
             </div>
             <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2">
                 <div className="bg-gray-50 p-5 m-2">
-                <div className="m-5" />
-                    <FormControl fullWidth >
-                            <InputLabel id="demo-simple-select-label">
-                                Sort By
-                            </InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={isSortBySize}    
-                                label="Age"
-                                onChange={(e)=>{
-                                    setIsSortBySize(!!e.target.value)
-                                }}
-                                
-                            >
-                                <MenuItem  value={false}>
-                                        Probability
-                                    </MenuItem>
-                                    <MenuItem  value={true}>
-                                        Size
-                                    </MenuItem>
-                                
-                            </Select>
-                        </FormControl>
+                    <div className="m-5" />
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                            Sort By
+                        </InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={isSortBySize}
+                            label="Age"
+                            onChange={(e) => {
+                                setIsSortBySize(!!e.target.value);
+                            }}
+                        >
+                            <MenuItem value={false}>Probability</MenuItem>
+                            <MenuItem value={true}>Size</MenuItem>
+                        </Select>
+                    </FormControl>
 
-                    <PieChart 
+                    <PieChart
                         data={probfreqchartjsdata}
                         options={{
                             onClick: (_evt, elements) => {
@@ -403,10 +416,10 @@ function Closed() {
                                     stacked: false,
                                 },
                                 y1: {
-                                    id: 'perc',
                                     position: 'right',
                                     type: 'linear',
-                                    min:0,max:100,
+                                    min: 0,
+                                    max: 100,
                                     grid: { color: '#ff000022' },
                                 },
                             },
