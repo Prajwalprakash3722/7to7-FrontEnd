@@ -141,11 +141,12 @@ export default function Overview({ year }) {
                     data: chartCounts.map((month) => month.get('0')),
                 },
                 {
-                    type: 'line',
-                    label: 'Dropped',
+                    type: 'bar',
+                    label: 'Warm',
                     yAxisID: 'y',
-                    backgroundColor: 'rgba(0,250,154)',
-                    data: chartCounts.map((month) => month.get('1')),
+                    stack: 'stack1',
+                    backgroundColor: 'rgba(100,250,154)',
+                    data: chartCounts.map((month) => month.get('2')),
                 },
                 // {
                 //     type: 'line',

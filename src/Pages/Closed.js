@@ -19,7 +19,7 @@ function Closed() {
     }, [value]);
     const month = useMemo(() => {
         // fix - > we do 1 indexed in dataset, but JS returns 0 indexed
-        return value.getMonth()+1;
+        return value.getMonth() + 1;
     }, [value]);
 
     // MAKE THE DATA
@@ -48,7 +48,14 @@ function Closed() {
             else return new Promise((res) => res({ data: [] }));
         })().then((res) => {
             const data = res.data;
-            setAlldata(data);
+            // console.log('got all this data',data);
+            setAlldata(
+                data.filter((e) => {
+                    const closedPred =
+                        e['Status'] === '0' || e['Status'] === '1';
+                    return closedPred;
+                })
+            );
             if (data.length > 0) {
                 setSelectableCategories(Object.keys(data[0]));
             }
@@ -67,9 +74,11 @@ function Closed() {
             const datemonth = parseInt(datesplit[1]);
             const pred = year === dateyear && month === datemonth;
             // console.log('Try',year,month,datesplit,pred);
+            // console.log('test',dateString,year,dateyear,month,datemonth,pred);
             // being warm - not ordered or dropped
             return pred;
         });
+        // console.log('filtered data',data);
         const affirmativeAllDataLen = alldata.filter((e) => {
             return e['Status'] === '1';
         }).length;
@@ -259,7 +268,7 @@ function Closed() {
                               probabilityFilteredCounts[i]
                         : 0;
                 });
-                
+
                 // add this extra map
                 chartjsdata.datasets.push(
                     {
