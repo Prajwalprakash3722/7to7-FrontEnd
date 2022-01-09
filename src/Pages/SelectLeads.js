@@ -70,6 +70,16 @@ const Add = () => {
         setGlobalSelected(selectedOption?.id ?? null);
         // localStorage.setItem("selected", selectedOption.id);
     };
+
+    // const lift =
+    //     confusionData[1][1] /
+    //     (confusionData[1][1] + confusionData[0][1]) /
+    //     ((confusionData[1][1] + confusionData[1][0]) /
+    //         (confusionData[0][0] +
+    //             confusionData[0][1] +
+    //             confusionData[1][0] +
+    //             confusionData[1][1]));
+
     return (
         <>
             {token && (
@@ -341,6 +351,10 @@ const Add = () => {
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <h1 className="text-neutral-500 text-2xl m-5">
+                                            {/* Lift value is {lift.toFixed(5)} */}
+                                        </h1>
+                                        <div></div>
                                     </div>
                                 )}
                             </div>
