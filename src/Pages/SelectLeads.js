@@ -4,29 +4,8 @@ import { SelectedContext } from '../etc/context';
 import axios from 'axios';
 import api_link from '../etc/api';
 const Add = () => {
-    const [token, setToken] = useState(() => localStorage.getItem('token'));
+    const [token] = useState(() => localStorage.getItem('token'));
     const [success, setSuccess] = useState(false);
-    const styles = {
-        // border: '1px solid black',
-        width: 600,
-        color: 'black',
-        padding: 20,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-        margin: '0 auto',
-        marginTop: '10%',
-        marginBottom: '10%',
-        backgroundColor: 'white',
-    };
-
-    // const [file, setFile] = useState(null);
-    // const [fileName, setFileName] = useState('');
-    // const [fileType, setFileType] = useState('');
-    // const [fileSize, setFileSize] = useState('');
-    // const [fileData, setFileData] = useState('');
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -64,7 +43,7 @@ const Add = () => {
             console.log(data);
             setConfusionData(data);
         });
-    }, [globalSelected]);
+    }, [globalSelected, token]);
 
     const totalRowCols = useMemo(() => {
         let rows = [0, 0],
