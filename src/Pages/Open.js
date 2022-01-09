@@ -18,7 +18,8 @@ function Closed() {
         return value.getFullYear();
     }, [value]);
     const month = useMemo(() => {
-        return value.getMonth();
+        // fix - > we do 1 indexed in dataset, but JS returns 0 indexed
+        return value.getMonth()+1;
     }, [value]);
 
     // MAKE THE DATA
