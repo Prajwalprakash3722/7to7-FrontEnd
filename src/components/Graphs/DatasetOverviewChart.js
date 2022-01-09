@@ -152,14 +152,19 @@ export default function Overview({ year }) {
                 },
                 {
                     type: 'line',
-                    label: 'TNR',
-                    backgroundColor: randomColor('TNR'),
-                    data: labels.map(() => Math.random() * 1000),
+                    label: 'TPR',
+                    backgroundColor: randomColor('TPR'),
+                    // (#ordered & #(prob of 1>.5))/#Ordered
+                    data: chartCounts.map((month) => {
+                        const total = month.get('0') + month.get('1');
+                        const prob = month.get('1') / total;
+                        return prob * 100;
+                    }),
                 },
                 {
                     type: 'line',
-                    label: 'TPR',
-                    backgroundColor: randomColor('TPR'),
+                    label: 'TNR',
+                    backgroundColor: randomColor('TNR'),
                     data: labels.map(() => Math.random() * 1000),
                 },
             ],
