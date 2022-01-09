@@ -84,13 +84,13 @@ export default function Overview({ year }) {
     const chartJSdataCounts = useMemo(() => {
         // these are the array of header and count per month
         const headers = new Set();
-        const chartCounts = alldata
+        const chartData = alldata
             .filter((e) => {
                 const dateString = e['Enquiry Date']; // Oct 23
                 const dateyear = parseInt(dateString.split(/-|\//)[2]);
                 return year === dateyear;
             })
-            .reduce(
+        const chartCounts = chartData.reduce(
                 (total, element) => {
                     // console.log(element);
                     const month =
@@ -107,6 +107,33 @@ export default function Overview({ year }) {
                 },
                 new Array(12).fill(undefined).map((e) => new Map())
             );
+            /** @type {[number,number,number,number,number]}  tp,tn,fp,fn,count*/
+        const chartPredictionCounts = chartData.reduce(
+            (total, element) => {
+                // console.log(element);
+                const month =
+                    parseInt(element['Enquiry Date'].split(/-|\//)[1]) - 1;
+                // if (element["Status"] === "0")
+                // console.log('example',element['Status'])
+                // console.log("setting",element['Status'],(total[month].get( element["Status"])??0)+1)
+                let [tp,tn,fp,fn,count] = total[month];
+                const status = element['Status']; 
+                // shortcut warm leads
+                if(status==='2') return total;
+
+                const predictedStatus = element['Predicted Class'];
+                if(status==='1'&&predictedStatus==='1') tp++; 
+                if(status==='0'&&predictedStatus==='0') tn++; 
+                if(status==='1'&&predictedStatus==='0') fn++; 
+                if(status==='0'&&predictedStatus==='1') fp++;
+                
+                // set the month
+                total[month] = [tp,tn,fp,fn,count+1];
+                return total;
+
+            },
+            new Array(12).fill(undefined).map((e) => [0/*tp*/,0/*tnr */,0/**fp */,0/**fn */,0/**count */])
+        );
         // this is the chartjs equivalent
 
         // console.log("mydata", chartCounts, headers);
@@ -157,29 +184,31 @@ export default function Overview({ year }) {
                 // },
                 {
                     type: 'line',
-                    label: 'TPR',
+                    label: 'TNR',
                     yAxisID: 'y1',
                     backgroundColor: randomColor('TPR'),
                     // (#ordered & #(prob of 1>.5))/#Ordered
-                    data: chartCounts.map((month) => {
-                        const total =
-                            (month.get('0') ?? 0) + (month.get('1') ?? 0);
+                    data: chartPredictionCounts.map((month) => {
+                        let [tp,tn,fp,fn,count] = month;
+                        const total = tn+fp;
+                            // (month.get('0') ?? 0) + (month.get('1') ?? 0);
                         if (total) {
-                            const prob = (month.get('1') ?? 0) / total;
+                            const prob = (tn ?? 0) / total;
                             return prob * 100;
                         } else return 0;
                     }),
                 },
                 {
                     type: 'line',
-                    label: 'TNR',
+                    label: 'TPR',
                     yAxisID: 'y1',
                     backgroundColor: randomColor('TNR'),
-                    data: chartCounts.map((month) => {
-                        const total =
-                            (month.get('0') ?? 0) + (month.get('1') ?? 0);
+                    data: chartPredictionCounts.map((month) => {
+                        let [tp,tn,fp,fn,count] = month;
+                        const total = tp+fn;
+                            // (month.get('0') ?? 0) + (month.get('1') ?? 0);
                         if (total) {
-                            const prob = (month.get('0') ?? 0) / total;
+                            const prob = (tp ?? 0) / total;
                             return prob * 100;
                         } else return 0;
                     }),
