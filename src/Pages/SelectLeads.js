@@ -298,48 +298,60 @@ const Add = () => {
 
                                 {confusionData && (
                                     <div className="p-5 flex flex-col items-center mt-3">
-                                        <table>
-                                            <thead>
+                                        <table class="min-w-full bg-white">
+                                            <thead className="bg-gray-600 text-white">
                                                 <tr>
                                                     <th></th>
-                                                    <th>Positive</th>
-                                                    <th>Negative</th>
+                                                    <th className="text-left p-5 uppercase font-semibold text-sm">
+                                                        Positive
+                                                    </th>
+                                                    <th className="text-right p-5 uppercase font-semibold text-sm">
+                                                        Negative
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th>Positive</th>
-                                                    <td>
+                                                <tr className="bg-gray-100">
+                                                    <th className="text-center p-5 bg-gray-600 text-white uppercase font-semibold text-sm">
+                                                        Positive
+                                                    </th>
+                                                    <td className="w-1/2 text-left py-3 px-4">
                                                         {confusionData[0][0]} -{' '}
                                                         {(
-                                                            confusionData[0][0]*100 /
+                                                            (confusionData[0][0] *
+                                                                100) /
                                                             totalRowCols.total
                                                         ).toFixed(2)}{' '}
                                                         %
                                                     </td>
-                                                    <td>
+                                                    <td className="w-1/2 text-left py-3 px-4">
                                                         {confusionData[0][1]} -{' '}
                                                         {(
-                                                            confusionData[0][1]*100 /
+                                                            (confusionData[0][1] *
+                                                                100) /
                                                             totalRowCols.total
                                                         ).toFixed(2)}{' '}
                                                         %
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Negative</th>
-                                                    <td>
+                                                    <th className="text-center p-5 bg-gray-600 text-white uppercase font-semibold text-sm">
+                                                        Negative
+                                                    </th>
+                                                    <td className="w-1/2 text-left py-3 px-4">
                                                         {confusionData[1][0]} -{' '}
                                                         {(
-                                                            confusionData[1][0]*100 /
+                                                            (confusionData[1][0] *
+                                                                100) /
                                                             totalRowCols.total
                                                         ).toFixed(2)}{' '}
                                                         %
                                                     </td>
-                                                    <td>
+                                                    <td className="w-1/2 text-left py-3 px-4">
                                                         {confusionData[1][1]} -{' '}
                                                         {(
-                                                            confusionData[1][1]*100 /
+                                                            (confusionData[1][1] *
+                                                                100) /
                                                             totalRowCols.total
                                                         ).toFixed(2)}{' '}
                                                         %
