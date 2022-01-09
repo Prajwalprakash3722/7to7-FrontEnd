@@ -172,7 +172,7 @@ export default function Overview({ year }) {
                     label: 'Warm',
                     yAxisID: 'y',
                     stack: 'stack1',
-                    backgroundColor: 'rgba(100,250,154)',
+                    backgroundColor: 'rgba(255,250,154, 0.9)',
                     data: chartCounts.map((month) => month.get('2')),
                 },
                 // {
@@ -209,6 +209,24 @@ export default function Overview({ year }) {
                             // (month.get('0') ?? 0) + (month.get('1') ?? 0);
                         if (total) {
                             const prob = (tp ?? 0) / total;
+                            return prob * 100;
+                        } else return 0;
+                    }),
+                },
+                {
+                    type: 'line',
+                    label: 'Conversion Rate',
+                    yAxisID: 'y1',
+                    backgroundColor: randomColor('Conversion Rate'),
+                    // #1/(#0+#1+#2)
+                    data: chartCounts.map((month) => {
+                        const total =
+                            (month.get('0') ?? 0) +
+                            (month.get('1') ?? 0) +
+                            (month.get('2') ?? 0);
+                        if (total) {
+                            const prob = (month.get('1') ?? 0) / total;
+                            console.log('prob', prob * 100);
                             return prob * 100;
                         } else return 0;
                     }),
