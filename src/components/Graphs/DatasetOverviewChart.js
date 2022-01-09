@@ -116,7 +116,7 @@ export default function Overview({ year }) {
             //     const label = e === '0' ? 'Dropped' : e === '1' ? 'Ordered' : e;
             //     return {
             //         type: 'bar',
-            //         // for 0,1 rest are default
+            //          for 0,1 rest are default
             //         label,
             //         stack: 'stack1',
             //         backgroundColor: randomColor(label),
@@ -165,7 +165,7 @@ export default function Overview({ year }) {
                     type: 'line',
                     label: 'TNR',
                     backgroundColor: randomColor('TNR'),
-                    data: labels.map(() => Math.random() * 1000),
+                    data: labels.map(() => Math.random() * 100),
                 },
             ],
         };
